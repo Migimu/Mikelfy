@@ -20,12 +20,12 @@ class Playlist:
         self.__name = name
     
     @property
-    def popularity(self):
-        return self.__popularity
+    def followers(self):
+        return self.__followers
     
-    @popularity.setter
-    def popularity(self, popularity: int):
-        self.__popularity = popularity
+    @followers.setter
+    def followers(self, followers: int):
+        self.__followers = followers
 
     @property
     def owner(self):
