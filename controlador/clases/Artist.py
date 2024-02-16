@@ -1,15 +1,5 @@
-from Gestores.Albums import Albums
-from Gestores.Songs import Songs
 
-
-class Artist(Albums, Songs):
-    # __id: str
-    # __name: str
-    # __country: str
-    # __followers: int
-    # __popularity: int
-    # __albums: Albums
-    # __songs: Songs
+class Artist:
     
     def __init__(self, id: int, name: str, country: str, followers: int, popularity: int):
         self.__id = id
@@ -17,10 +7,11 @@ class Artist(Albums, Songs):
         self.__country = country
         self.__followers = followers
         self.__popularity = popularity
-        self.__songs = Songs.__init__(self)
-        self.__albums = Albums.__init__(self)
+        self.__songs = []
+        self.__albums = []
     
-    def GET_ID(self):
+    @property
+    def id(self):
         return self.__id
     
     def GET_NAME(self):

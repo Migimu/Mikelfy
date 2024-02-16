@@ -4,13 +4,14 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>d351d300-67e3-4cc4-842d-b6b29dd11128</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>Mikelfy.py</StartupFile>
+    <StartupFile>Main.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
     <Name>Mikelfy</Name>
     <RootNamespace>Mikelfy</RootNamespace>
+    <IsWindowsApplication>False</IsWindowsApplication>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -21,27 +22,33 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Clases\Album.py" />
-    <Compile Include="Clases\Artist.py" />
-    <Compile Include="Clases\Genre.py" />
-    <Compile Include="Clases\Playlist.py" />
-    <Compile Include="Clases\Show.py" />
-    <Compile Include="Clases\Song.py" />
-    <Compile Include="Clases\User.py" />
-    <Compile Include="Gestores\Albums.py" />
-    <Compile Include="Gestores\Artists.py" />
-    <Compile Include="Gestores\Genres.py" />
-    <Compile Include="Gestores\Playlists.py" />
-    <Compile Include="Gestores\Shows.py" />
-    <Compile Include="Gestores\Songs.py" />
-    <Compile Include="Gestores\Users.py" />
-    <Compile Include="Globals.py" />
+    <Compile Include="controlador\clases\Album.py" />
+    <Compile Include="controlador\clases\Artist.py" />
+    <Compile Include="controlador\clases\Genre.py" />
+    <Compile Include="controlador\clases\Playlist.py" />
+    <Compile Include="controlador\clases\Song.py" />
+    <Compile Include="controlador\clases\User.py" />
+    <Compile Include="controlador\Conn.py" />
+    <Compile Include="controlador\ControladorLogin.py" />
+    <Compile Include="controlador\gestores\Users.py" />
+    <Compile Include="controlador\gestores\Albums.py" />
+    <Compile Include="controlador\gestores\Artists.py" />
+    <Compile Include="controlador\gestores\Genres.py" />
+    <Compile Include="controlador\gestores\Playlists.py" />
+    <Compile Include="controlador\gestores\Songs.py" />
     <Compile Include="Main.py" />
-    <Compile Include="Mikelfy.py" />
+    <Compile Include="modelo\mockUsers.py" />
+    <Compile Include="vista\Dialogs.py" />
+    <Compile Include="vista\Login.py" />
+    <Compile Include="vista\NewPassword.py" />
+    <Compile Include="vista\NewUser.py" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Clases\" />
-    <Folder Include="Gestores\" />
+    <Folder Include="controlador\gestores\" />
+    <Folder Include="controlador\clases\" />
+    <Folder Include="modelo\" />
+    <Folder Include="controlador\" />
+    <Folder Include="vista\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in

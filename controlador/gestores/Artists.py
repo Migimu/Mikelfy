@@ -1,4 +1,4 @@
-from Clases.Artist import Artist
+from clases.Artist import Artist
 
 class Artists:
     

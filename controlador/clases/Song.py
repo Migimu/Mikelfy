@@ -1,27 +1,16 @@
-from Clases.Artist import Artist
-from Clases.Song import Song
-from Gestores.Songs import Songs
-
-class Album(Songs):
+class Song:
     
-    # __id: int
-    # __name: str
-    # __popularity: int
-    # __releaseYear: int
-    # __isExplicit: bool
-    # __isExplicit: Artist
-    # __songs: Songs
-    
-    def __init__(self, id: int, name: str, popularity: int, releaseYear: int, isExplicit: bool, artistId: int):
+    def __init__(self, id: int, name: str, duration: int, popularity: int, releaseYear: int, isExplicit: bool, reproductions: int):
         self.__id = id
         self.__name = name
+        self.__duration = duration
         self.__popularity = popularity
         self.__releaseYear = releaseYear
         self.__isExplicit = isExplicit
-        self.__artistId = artistId
-        self.__songs = Songs.__init__(self)
+        self.__reproductions = reproductions
     
-    def GET_ID(self):
+    @property
+    def id(self) -> int:
         return self.__id
     
     def GET_NAME(self):
@@ -29,6 +18,12 @@ class Album(Songs):
     
     def SET_NAME(self, name: str):
         self.__name = name
+        
+    def GET_DURATION(self):
+        return self.__duration
+    
+    def SET_DURATION(self, duration: int):
+        self.__duration = duration
     
     def GET_POPULARITY(self):
         return self.__popularity
@@ -47,12 +42,19 @@ class Album(Songs):
     
     def CHANGE_IS_EXPLICIT(self):
         self.__isExplicit = not self.__isExplicit
-
-    def GET_SONGS(self):
-        return self.__songs
+        
+    def GET_REPRODUCTIONS(self):
+        return self.__reproductions
     
-    def SET_SONGS(self, songs: Songs):
-        self.__songs = songs
+    def SET_REPRODUCTIONS(self, reproductions: int):
+        self.__reproductions = reproductions
+
+    def GET_ARTISTS(self):
+        return self.__artists
+    
+    def SET_ARTISTS(self, artists: Artists):
+        self.__artists = artists
+
 
 
 

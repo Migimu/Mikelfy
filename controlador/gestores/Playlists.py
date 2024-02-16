@@ -1,5 +1,5 @@
-from Clases.Playlist import Playlist
-from Clases.User import User
+from clases.Playlist import Playlist
+from clases.User import User
 
 class Playlists:
     

@@ -1,5 +1,5 @@
-from Clases.Album import Album
-from Clases.Artist import Artist
+from clases.Album import Album
+from clases.Artist import Artist
 
 class Albums:
     

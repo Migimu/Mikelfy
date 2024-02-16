@@ -1,22 +1,15 @@
-from Gestores.Genres import Genres
-
-class Genre(Genres):
-    # __id: str
-    # __name: str
-    # __isSubgenre: bool
-    # __popularity: int
-    #__relatedGenres: Genres
-    #__fatherGenre: Genre
+class Genre:
 
     def __init__(self, id: int, name: str, isSubgenre: bool, popularity: int):
         self.__id = id
         self.__name = name
         self.__isSubgenre = isSubgenre
         self.__popularity = popularity
-        self.__relatedGenres = Genres.__init__(self)
-        self.__parentGenres = Genres.__init__(self)
+        self.__relatedGenres = []
+        self.__parentGenres = []
     
-    def GET_ID(self):
+    @property
+    def id(self):
         return self.__id
     
     def GET_NAME(self):

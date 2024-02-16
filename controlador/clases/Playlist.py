@@ -1,22 +1,14 @@
-from Clases.User import User
-from Gestores.Songs import Songs
-
-
-class Playlist(Songs):
-    # __id: str
-    # __name:str
-    # __followers: int
-    # __owner: User
-    # __songs: Songs
+class Playlist:
     
     def __init__(self, id: int, name: str, followers: int, userId: int):
         self.__id = id
         self.__name = name
         self.__followers = followers
         self.__owner = userId
-        self.__songs = Songs.__init__(self)
+        self.__songs = []
     
-    def GET_ID(self):
+    @property
+    def id(self):
         return self.__id
     
     def GET_NAME(self):
@@ -37,7 +29,7 @@ class Playlist(Songs):
     def GET_SONGS(self):
         return self.__songs
     
-    def SET_SONGS(self, songs: Songs):
+    def SET_SONGS(self, songs: [int]):
         self.__songs = songs
 
 

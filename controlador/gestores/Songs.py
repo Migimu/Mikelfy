@@ -1,4 +1,4 @@
-from Clases.Song import Song
+from clases.Song import Song
 
 class Songs:
     

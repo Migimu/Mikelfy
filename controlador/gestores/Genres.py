@@ -1,4 +1,4 @@
-from Clases.Genre import Genre
+from clases.Genre import Genre
 
 class Genres:
     
