@@ -9,46 +9,67 @@ class Artist:
         self.__popularity = popularity
         self.__songs = []
         self.__albums = []
+        self.__genres = []
     
     @property
     def id(self):
         return self.__id
     
-    def GET_NAME(self):
+    @property
+    def name(self):
         return self.__name
     
-    def SET_NAME(self, name: str):
+    @name.setter
+    def name(self, name: str):
         self.__name = name
         
-    def GET_COUNTRY(self):
+    @property
+    def country(self):
         return self.__country
     
-    def SET_COUNTRY(self, country: str):
-        self.__country = country        
+    @country.setter
+    def country(self, country: str):
+        self.__country = country     
     
-    def GET_FOLLOWERS(self):
+    @property
+    def followers(self):
         return self.__followers
     
-    def SET_FOLLOWERS(self, followers: int):
+    @followers.setter
+    def followers(self, followers: int):
         self.__followers = followers
     
-    def GET_POPULARITY(self):
+    @property
+    def popularity(self):
         return self.__popularity
     
-    def SET_POPULARITY(self, popularity: int):
+    @popularity.setter
+    def popularity(self, popularity: int):
         self.__popularity = popularity        
 
-    def GET_SONGS(self):
+    @property
+    def songs(self):
         return self.__songs
     
-    def SET_SONGS(self, songs: Songs):
+    @songs.setter
+    def songs(self, songs):
         self.__songs = songs
     
-    def GET_ALBUMS(self):
+    @property
+    def albums(self):
         return self.__albums
     
-    def SET_ALBUMS(self, albums: Albums):
+    @albums.setter
+    def albums(self, albums):
         self.__albums = albums
+        
+    @property
+    def genres(self):
+        return self.__genres
+    
+    @genres.setter
+    def genres(self, genres):
+        self.__genres = genres
 
 
 

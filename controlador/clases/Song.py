@@ -8,51 +8,84 @@ class Song:
         self.__releaseYear = releaseYear
         self.__isExplicit = isExplicit
         self.__reproductions = reproductions
+        self.__albums = []
+        self.__genres = []
+        self.__artists = []
     
     @property
     def id(self) -> int:
         return self.__id
     
-    def GET_NAME(self):
+    @property
+    def name(self):
         return self.__name
     
-    def SET_NAME(self, name: str):
+    @name.setter
+    def name(self, name: str):
         self.__name = name
-        
-    def GET_DURATION(self):
+      
+    @property
+    def duration(self):
         return self.__duration
     
-    def SET_DURATION(self, duration: int):
+    @duration.setter
+    def duration(self, duration: int):
         self.__duration = duration
     
-    def GET_POPULARITY(self):
+    @property
+    def popularity(self):
         return self.__popularity
     
-    def SET_POPULARITY(self, popularity: int):
+    @popularity.setter
+    def popularity(self, popularity: int):
         self.__popularity = popularity
 
-    def GET_RELEASE_YEAR(self):
+    @property
+    def releaseYear(self):
         return self.__releaseYear
     
-    def SET_RELEASE_YEAR(self, releaseYear: int):
+    @releaseYear.setter
+    def releaseYear(self, releaseYear: int):
         self.__releaseYear = releaseYear
         
-    def GET_IS_EXPLICIT(self):
+    @property
+    def isExplicit(self):
         return self.__isExplicit
     
-    def CHANGE_IS_EXPLICIT(self):
+    @isExplicit.setter
+    def isExplicit(self):
         self.__isExplicit = not self.__isExplicit
         
-    def GET_REPRODUCTIONS(self):
+    @property
+    def reproductions(self):
         return self.__reproductions
     
-    def SET_REPRODUCTIONS(self, reproductions: int):
+    @reproductions.setter
+    def reproductions(self, reproductions: int):
         self.__reproductions = reproductions
+        
+    @property
+    def albums(self):
+        return self.__albums
+    
+    @albums.setter
+    def albums(self, albums):
+        self.__albums = albums
+        
+    @property
+    def genres(self):
+        return self.__genres
+    
+    @genres.setter
+    def genres(self, genres):
+        self.__genres = genres
 
-    def GET_ARTISTS(self):
+    @property
+    def artists(self):
         return self.__artists
     
-    def SET_ARTISTS(self, artists: Artists):
+    @artists.setter
+    def artists(self, artists):
         self.__artists = artists
 
 

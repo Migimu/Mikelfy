@@ -6,8 +6,9 @@ class Album:
         self.__popularity = popularity
         self.__releaseYear = releaseYear
         self.__isExplicit = isExplicit
-        self.__artistId = artistId
         self.__songs = []
+        self.__albums = []
+        self.__genres = []
     
     @property
     def id(self):
@@ -50,8 +51,24 @@ class Album:
         return self.__songs
     
     @songs.setter
-    def songs(self, songs: [int]):
+    def songs(self, songs):
         self.__songs = songs
+        
+    @property
+    def albums(self):
+        return self.__albums
+    
+    @albums.setter
+    def albums(self, albums):
+        self.__albums = albums
+        
+    @property
+    def genres(self):
+        return self.__genres
+    
+    @genres.setter
+    def genres(self, genres):
+        self.__genres = genres
 
 
 
