@@ -10,8 +10,8 @@ class NewUser(QWidget):
         super().__init__()
         self.cl:ControladorLogin = ControladorLogin()
         
-        self.resize(500, 300)
-        self.setMaximumSize(500, 300)
+        self.resize(600, 400)
+        self.setMaximumSize(600, 400)
 
         formulario = QGridLayout()
         
@@ -25,8 +25,8 @@ class NewUser(QWidget):
         self.user.setText(username)
         
         emailLabel = QLabel("Email: ")
-        self.emai = QLineEdit()    
-        self.emai.setFixedWidth(150)
+        self.email = QLineEdit()    
+        self.email.setFixedWidth(150)
         
         countryLabel = QLabel("Pais: ")
         self.country =  QComboBox()
@@ -38,6 +38,7 @@ class NewUser(QWidget):
         
         passwordLabel = QLabel("Contraseña: ")
         self.password = QLineEdit()    
+        self.password.setEchoMode(QLineEdit.Password)  
         self.password.setFixedWidth(150)
         
         button = QPushButton("Aceptar")
@@ -51,7 +52,7 @@ class NewUser(QWidget):
         formulario.addWidget(self.user, 1, 1, Qt.AlignLeft)
         
         formulario.addWidget(emailLabel, 2, 0, Qt.AlignRight)
-        formulario.addWidget(self.emai, 2, 1, Qt.AlignLeft)
+        formulario.addWidget(self.email, 2, 1, Qt.AlignLeft)
         
         formulario.addWidget(countryLabel, 3, 0, Qt.AlignRight)
         formulario.addWidget(self.country, 3, 1, Qt.AlignLeft)
@@ -67,8 +68,9 @@ class NewUser(QWidget):
 
 
     def CREAR(self):
-       isValid = self.cl.RESGISTRAR(self.user.text(),self.password.text())
+       isValid = self.cl.VALIDATE_USERNAME(self.user.text())
        if isValid:
+           self.cl.RESGISTRATE(self.user.text(), self.name.text(), self.email.text(), self.country.currentIndex(), self.birthDate.selectedDate(), self.password.text())
            OPEN_INFORMATION_DIALOG("¡Enhorabuena!", "Tu usuario ha sido creado correctamente")
            self.close()
        else:

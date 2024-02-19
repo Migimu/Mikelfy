@@ -17,13 +17,15 @@ class ControladorLogin:
         else:          
             return -1, username
         
-    def RESGISTRAR(self, username, name, email, country, birthDate, password):       
+    def VALIDATE_USERNAME(self, username):       
         user: User = self.users.GET_USER_BY_USERNAME(username)
         if user == None:
-            self.users.ADD_USER(User(0, username, name, email, password, country, birthDate))
             return True
         else:          
             return False
+        
+    def RESGISTRATE(self, username, name, email, country, birthDate, password):       
+        self.users.ADD_USER(User(0, username, name, email, password, country, birthDate))
         
     def VALIDATE_PASSWORD(self, user, password, newPassword):
         if password == newPassword:

@@ -26,12 +26,12 @@ class User:
         self.__username = username
         
     @property
-    def password(self):
-        return self.__password
+    def name(self):
+        return self.__name
     
-    @password.setter
-    def password(self, password: str):
-        self.__password = password
+    @name.setter
+    def name(self, name: str):
+        self.__name = name
         
     @property
     def email(self):
@@ -40,6 +40,14 @@ class User:
     @email.setter
     def email(self, email: str):
         self.__email = email
+
+    @property
+    def password(self):
+        return self.__password
+    
+    @password.setter
+    def password(self, password: str):
+        self.__password = password         
         
     @property
     def country(self):

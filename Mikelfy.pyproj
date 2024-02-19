@@ -30,6 +30,7 @@
     <Compile Include="controlador\clases\User.py" />
     <Compile Include="controlador\Conn.py" />
     <Compile Include="controlador\ControladorLogin.py" />
+    <Compile Include="controlador\ControladorBrowser.py" />
     <Compile Include="controlador\gestores\Users.py" />
     <Compile Include="controlador\gestores\Albums.py" />
     <Compile Include="controlador\gestores\Artists.py" />
@@ -39,16 +40,19 @@
     <Compile Include="Main.py" />
     <Compile Include="modelo\mockUsers.py" />
     <Compile Include="vista\Dialogs.py" />
-    <Compile Include="vista\Login.py" />
-    <Compile Include="vista\NewPassword.py" />
-    <Compile Include="vista\NewUser.py" />
+    <Compile Include="vista\login\Login.py" />
+    <Compile Include="vista\login\NewPassword.py" />
+    <Compile Include="vista\login\NewUser.py" />
+    <Compile Include="vista\Menu.py" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="controlador\gestores\" />
     <Folder Include="controlador\clases\" />
     <Folder Include="modelo\" />
     <Folder Include="controlador\" />
+    <Folder Include="imagenes\" />
     <Folder Include="vista\" />
+    <Folder Include="vista\login\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in

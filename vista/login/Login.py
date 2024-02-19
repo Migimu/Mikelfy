@@ -4,8 +4,8 @@ from PySide6.QtCore import Qt, Slot
 
 from controlador.ControladorLogin import ControladorLogin
 from vista.Dialogs import OPEN_ACCEPT_CANCEL_DIALOG
-from vista.NewPassword import NewPassword
-from vista.NewUser import NewUser
+from vista.login.NewPassword import NewPassword
+from vista.login.NewUser import NewUser
 
 class MainWindow(QMainWindow):
 
