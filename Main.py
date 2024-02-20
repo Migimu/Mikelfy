@@ -1,6 +1,6 @@
 import sys
 from PySide6.QtWidgets import QApplication
-from vista.Login import MainWindow
+from vista.login.Login import MainWindow
 
 
 if __name__ == "__main__":   

@@ -1,4 +1,4 @@
-
+from vista.Menu import Menu
 from PySide6.QtWidgets import QMainWindow, QLineEdit, QLabel, QPushButton, QGridLayout, QWidget, QMessageBox
 from PySide6.QtCore import Qt, Slot
 
@@ -53,7 +53,7 @@ class MainWindow(QMainWindow):
             case 0:
                 self.ASK_TO_CHANGE_PASSWORD(user)
             case 1:                                         
-                self.OPEN_DASHBOARD_WINDOW()
+                self.OPEN_DASHBOARD_WINDOW(user)
                 
     def ASK_TO_CHANGE_PASSWORD(self, user):
         respuesta = OPEN_ACCEPT_CANCEL_DIALOG(self, "Contraseña erronea", "La contraseña es erronea\n¿Quieres cambiar la contraseña?")
@@ -77,8 +77,10 @@ class MainWindow(QMainWindow):
         self.newPassword.closed.connect(self.ON_CHILD_CLOSED)
         self.newPassword.show()
         
-    def OPEN_DASHBOARD_WINDOW(self):              
-        pass
+    def OPEN_DASHBOARD_WINDOW(self, user):              
+        self.menu = Menu(user)          
+        self.menu.closed.connect(self.ON_CHILD_CLOSED)
+        self.menu.show()
                  
             
     @Slot()

@@ -1,5 +1,5 @@
 ﻿from PySide6.QtWidgets import QLineEdit, QLabel, QPushButton, QGridLayout, QWidget
-from PySide6.QtCore import Qt,  Signal, Slot
+from PySide6.QtCore import Qt, Signal, Slot
 
 from controlador.ControladorLogin import ControladorLogin
 from vista.Dialogs import OPEN_INFORMATION_DIALOG

@@ -3,7 +3,6 @@ from clases.Artist import Artist
 
 class Albums:
     
-    # __albums: [Album]
     
     def __init__(self, albums = []):
         self.__albums = albums
@@ -29,10 +28,10 @@ class Albums:
     # def GET_TOP_ALBUMS_BY_COUNTRY(self):
     #     return ""
 
-    def GET_ALBUMS_BY_ARTIST(self, artis: Artist):
+    def GET_ALBUMS_BY_ARTIST(self, artistId):
         artistAlbums = []
         for album in self.__albums:
-            if album.GET_ARTIST().GET_ID() == artis.GET_ID():
+            if album.GET_ARTIST().GET_ID() == artistId:
                 artistAlbums.append(album)
         
         return artistAlbums

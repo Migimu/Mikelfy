@@ -39,6 +39,7 @@
     <Compile Include="controlador\gestores\Songs.py" />
     <Compile Include="Main.py" />
     <Compile Include="modelo\mockUsers.py" />
+    <Compile Include="vista\Browser.py" />
     <Compile Include="vista\Dialogs.py" />
     <Compile Include="vista\login\Login.py" />
     <Compile Include="vista\login\NewPassword.py" />
@@ -53,6 +54,12 @@
     <Folder Include="imagenes\" />
     <Folder Include="vista\" />
     <Folder Include="vista\login\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="imagenes\buscar.gif" />
+    <Content Include="imagenes\buscar.png" />
+    <Content Include="imagenes\listaDeReproduccion.png" />
+    <Content Include="imagenes\cerrarSesion.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
