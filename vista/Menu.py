@@ -2,6 +2,7 @@
 from PySide6.QtCore import QSize, Signal, Slot
 from PySide6.QtWidgets import QGridLayout, QMessageBox, QPushButton, QWidget
 from pathlib import Path
+from vista.Browser import Browser
 
 from vista.Dialogs import OPEN_ACCEPT_CANCEL_DIALOG
 
@@ -55,10 +56,9 @@ class Menu(QWidget):
             
     
     def OPEN_BROWSER_WINDOW(self):              
-        # self.newUser = NewUser(username)          
-        # self.newUser.closed.connect(self.ON_CHILD_CLOSED)
-        # self.newUser.show()
-        pass
+        self.browser = Browser(self.user)          
+        self.browser.closed.connect(self.ON_CHILD_CLOSED)
+        self.browser.show()
         
     def OPEN_PLAYLISTS_WINDOW(self):              
         # self.newPassword = NewPassword(user)          

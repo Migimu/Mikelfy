@@ -56,7 +56,6 @@
     <Folder Include="vista\login\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="imagenes\buscar.gif" />
     <Content Include="imagenes\buscar.png" />
     <Content Include="imagenes\listaDeReproduccion.png" />
     <Content Include="imagenes\cerrarSesion.png" />
