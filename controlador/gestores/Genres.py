@@ -1,8 +1,12 @@
-from clases.Genre import Genre
+from modelo.mockUsers import generos
 
-class Genres:
-    
-    __genres: [Genre]
+class Genres:   
+
+    def __init__(self, genres = []):
+        if len(genres) == 0:
+            self.__genres = generos
+        else:            
+            self.__genres = genres
 
     def GET_GENRES(self):
         return self.__genres

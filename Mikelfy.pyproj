@@ -45,6 +45,7 @@
     <Compile Include="vista\login\NewPassword.py" />
     <Compile Include="vista\login\NewUser.py" />
     <Compile Include="vista\Menu.py" />
+    <Compile Include="vista\Utils.py" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="controlador\gestores\" />
@@ -62,7 +63,7 @@
     <Content Include="imagenes\filtrar.png" />
     <Content Include="imagenes\listaDeReproduccion.png" />
     <Content Include="imagenes\cerrarSesion.png" />
-    <Content Include="imagenes\musica.png" />
+    <Content Include="imagenes\cancion.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
