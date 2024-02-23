@@ -1,4 +1,5 @@
 from modelo.mockUsers import albumes
+from vista.utils import FILTER
 
 class Albums:
     
@@ -26,6 +27,13 @@ class Albums:
         albums = []
         for album in self.__albums:
             if album.name == name:
+                albums.append(album)
+        return albums
+    
+    def GET_ALBUMS_BY_FILTER(self, name: str, startYear: int, endYear: int, genre: int):
+        albums = []
+        for album in self.__albums:
+            if FILTER(album, name, startYear, endYear, genre):
                 albums.append(album)
         return albums
 

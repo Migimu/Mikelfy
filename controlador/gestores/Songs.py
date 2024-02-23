@@ -1,4 +1,5 @@
 from modelo.mockUsers import canciones
+from vista.utils import FILTER
 
 class Songs:
 
@@ -22,13 +23,18 @@ class Songs:
             cont+=1
         return song
 
-    def GET_ALBUMS_BY_NAME(self, name: str):
+    def GET_SONGS_BY_NAME(self, name: str):
         songs = []
         for song in self.__songs:
             if song.name == name:
                 songs.append(song)
         return songs
 
-
+    def GET_SONGS_BY_FILTER(self, name: str, startYear: int, endYear: int, genre: int):
+        songs = []
+        for song in self.__songs:
+            if FILTER(song, name, startYear, endYear, genre):
+                songs.append(song)
+        return songs
 
 

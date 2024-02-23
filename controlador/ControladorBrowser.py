@@ -15,9 +15,9 @@ class ControladorBrowser:
       
     def GET_ALL_COINCIDENCES(self, word, genre = None, startYear = None, endyear = None):
         result = []
-        artists = self.artists.GET_ARTIST_BY_NAME(word, genre, startYear, endyear)
-        albums = self.albums.GET_ALBUMS_BY_NAME(word, genre, startYear, endyear)
-        songs = self.songs.GET_SONG_BY_NAME(word, genre, startYear, endyear)
+        artists = self.artists.GET_ARTISTS_BY_FILTER(word, genre, startYear, endyear)
+        albums = self.albums.GET_ALBUMS_BY_FILTER(word, genre, startYear, endyear)
+        songs = self.songs.GET_SONGS_BY_FILTER(word, genre, startYear, endyear)
         result.extend(artists)
         result.extend(albums)
         result.extend(songs)

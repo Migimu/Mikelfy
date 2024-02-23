@@ -1,4 +1,4 @@
-from controlador.clases.Album import Album
+﻿from controlador.clases.Album import Album
 from controlador.clases.Artist import Artist
 from controlador.clases.Genre import Genre
 from controlador.clases.Song import Song
@@ -12,7 +12,7 @@ usuarios = [User(1, 'mikel', '1234', '1234', '1234', '1234', '1234'),
             User(3, 'morlock', '1234', '1234', '1234', '1234', '1234')]
 
 global countries 
-countries = ["Espa�a", "Francia", "Portugal", "UK", "Irlanda", "Paises Bajos", "Andorra", "Italia", "Alemania", "USA"]
+countries = ["España", "Francia", "Portugal", "UK", "Irlanda", "Paises Bajos", "Andorra", "Italia", "Alemania", "USA"]
 
 global artistas 
 artistas = [Artist(1, 'Nirvana', 'USA', 9000, 9000), 

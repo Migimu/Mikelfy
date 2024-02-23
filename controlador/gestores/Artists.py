@@ -1,4 +1,5 @@
 from modelo.mockUsers import artistas
+from vista.utils import FILTER
 
 class Artists:
     
@@ -28,7 +29,15 @@ class Artists:
             if artist.name == name:
                 artists.append(artist)
         return artists
-
+    
+    def GET_ARTISTS_BY_FILTER(self, name: str, startYear: int, endYear: int, genre: int):
+        artists = []
+        for artist in self.__artists:
+            if FILTER(artist, name, startYear, endYear, genre):
+                artists.append(artist)
+        return artists
+            
+        
     # def GET_TOP_ALBUMS(self):
     #     self.__albums.sort(key=lambda album: album.GET_POPULARITY())
     #     return self.__albums
