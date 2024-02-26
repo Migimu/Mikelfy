@@ -12,3 +12,10 @@ def FILTER(item, name: str, startYear: int, endYear: int, genre: int):
         return True
     return False
 
+# def GET_ICON(item):    
+#     if ((name == "" or item.name == name) and 
+#         (startYear == None or item.releaseYear >= startYear) and 
+#         (endYear == None or item.releaseYear <= endYear) and 
+#         (genre == None or item.genre == genre)):
+#         return True
+#     return False
