@@ -11,7 +11,7 @@ class ControladorBrowser:
         self.songs = Songs()
         
     def SEARCH(self, word, isArtist = False, isAlbum = False, isSong = False, genre = None, startYear = None, endyear = None):
-        return self.GET_ALL_COINCIDENCES(self, word)
+        return self.GET_ALL_COINCIDENCES(word)
       
     def GET_ALL_COINCIDENCES(self, word, genre = None, startYear = None, endyear = None):
         result = []

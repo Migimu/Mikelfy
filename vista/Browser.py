@@ -39,7 +39,7 @@ class Searchbar(QWidget):
 
         self.searchBarInput = QLineEdit()
         self.searchBarInput.setFixedHeight(35)
-        layout.addWidget(QLineEdit(), 8)
+        layout.addWidget(self.searchBarInput, 8)
 
         self.searchButton = QPushButton()
         self.searchButton.setIcon(QtGui.QIcon(absPath("imagenes/buscar.png")))
@@ -52,6 +52,8 @@ class Searchbar(QWidget):
         layout.addWidget(self.filterButton, 1)                   
         
         self.setLayout(layout)
+        
+
 
 # class Browser(QWidget):
 class Browser(QMainWindow):
@@ -60,7 +62,7 @@ class Browser(QMainWindow):
         super().__init__()
         self.user = user
         self.cl:ControladorBrowser = ControladorBrowser()
-        
+        self.searchText = ""
         self.resize(600, 400)
         self.setMaximumSize(600, 400)
 
@@ -70,12 +72,14 @@ class Browser(QMainWindow):
         self.searchbar.searchButton.clicked.connect(self.BUSCAR)
         self.searchbar.filterButton.clicked.connect(self.TOGGLE_FILTER)
         layout.addWidget(self.searchbar, 1)
-        
+
         self.filter = Filter()
         self.filter.hide()
         layout.addWidget(self.filter, 1)
         
         self.scroll = QScrollArea()        
+        self.scroll.setFixedWidth(200)
+        self.scroll.setFixedHeight(400)        
         self.scroll.setWidget(QLabel("No hay nada"))
         layout.addWidget(self.scroll, 8, Qt.AlignCenter)
 
@@ -122,8 +126,7 @@ class Browser(QMainWindow):
        cardLayout.addWidget(QPushButton("<"), 1)
        card.setLayout(cardLayout)
        
-       return card
-              
+       return card             
            
     @Slot()
     def closeEvent(self, event):
