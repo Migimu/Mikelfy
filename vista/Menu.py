@@ -70,8 +70,6 @@ class Menu(QWidget):
             
     @Slot()
     def ON_CHILD_CLOSED(self):
-        self.user.setText("")
-        self.password.setText("")
         self.show()
 
 # Creamos la aplicación, la ventana e iniciamos el bucle

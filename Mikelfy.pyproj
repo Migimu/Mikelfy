@@ -61,11 +61,13 @@
     <Content Include="imagenes\album.png" />
     <Content Include="imagenes\artista.png" />
     <Content Include="imagenes\buscar.png" />
+    <Content Include="imagenes\limpiarFiltro.png" />
     <Content Include="imagenes\filtrar.png" />
     <Content Include="imagenes\listaDeReproduccion.png" />
     <Content Include="imagenes\cerrarSesion.png" />
     <Content Include="imagenes\cancion.png" />
     <Content Include="imagenes\play.png" />
+    <Content Include="imagenes\back.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in

@@ -6,67 +6,10 @@ from controlador.ControladorBrowser import ControladorBrowser
 from controlador.clases.Artist import Artist
 from controlador.clases.Album import Album
 from controlador.clases.Song import Song
+from vista.Filter import Filter
+from vista.Searchbar import Searchbar
 from vista.mediaPlayer import MediaPlayer
-from vista.utils import absPath
-
-class Filter(QWidget):
-    def __init__(self):
-        super().__init__()
-        
-        self.resize(600, 400)
-        self.setMaximumSize(600, 400)
-
-        layout = QGridLayout()
-
-        self.artistCheckbox = QCheckBox("Artistas")
-        self.artistCheckbox.setChecked(True)
-        layout.addWidget(self.artistCheckbox, 0, 0)
-        self.albumsCheckbox = QCheckBox("Albumes")
-        self.albumsCheckbox.setChecked(True)
-        layout.addWidget(self.albumsCheckbox, 0, 1)
-        self.songsCheckbox = QCheckBox("Canciones")
-        self.songsCheckbox.setChecked(True)
-        layout.addWidget(self.songsCheckbox, 0, 2)
-        
-        self.yearStartInput = QSpinBox()
-        self.yearStartInput.setMinimum(1900)
-        self.yearStartInput.setMaximum(2024)
-        layout.addWidget(self.yearStartInput, 1, 0)
-        self.yearEndInput = QSpinBox()
-        self.yearEndInput.setMinimum(1900)
-        self.yearEndInput.setMaximum(2024)
-        layout.addWidget(self.yearEndInput, 1, 1)
-        self.genreCombobox = QComboBox()
-        layout.addWidget(self.genreCombobox, 1, 2)            
-        
-        self.setLayout(layout)
-
-class Searchbar(QWidget):
-    def __init__(self):
-        super().__init__()
-        
-        self.resize(600, 400)
-        self.setMaximumSize(600, 400)
-
-        layout = QHBoxLayout()
-
-        self.searchBarInput = QLineEdit()
-        self.searchBarInput.setFixedHeight(35)
-        layout.addWidget(self.searchBarInput, 8)
-
-        self.searchButton = QPushButton()
-        self.searchButton.setIcon(QtGui.QIcon(absPath("imagenes/buscar.png")))
-        self.searchButton.setFixedSize(QSize(30,30))
-        layout.addWidget(self.searchButton, 1)
-        
-        self.filterButton = QPushButton()
-        self.filterButton.setIcon(QtGui.QIcon(absPath("imagenes/filtrar.png")))
-        self.filterButton.setFixedSize(QSize(30,30))
-        layout.addWidget(self.filterButton, 1)                   
-        
-        self.setLayout(layout)
-        
-
+from vista.utils import absPath      
 
 # class Browser(QWidget):
 class Browser(QMainWindow):
@@ -84,9 +27,10 @@ class Browser(QMainWindow):
         self.searchbar = Searchbar()
         self.searchbar.searchButton.clicked.connect(self.BUSCAR)
         self.searchbar.filterButton.clicked.connect(self.TOGGLE_FILTER)
+        self.searchbar.backButton.clicked.connect(self.VOLVER)
         layout.addWidget(self.searchbar, 1)
 
-        self.filter = Filter()
+        self.filter = Filter()       
         self.filter.hide()
         layout.addWidget(self.filter, 1)
         
@@ -214,7 +158,10 @@ class Browser(QMainWindow):
        cardLayout.addWidget(playButton, 1)
        card.setLayout(cardLayout)
        
-       return card                   
+       return card      
+    
+    def VOLVER(self):
+       self.close() 
            
     @Slot()
     def closeEvent(self, event):
