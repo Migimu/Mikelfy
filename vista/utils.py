@@ -5,7 +5,9 @@ def absPath(file):
     return path
 
 def FILTER(item, name: str, startYear: int, endYear: int, genre: int):    
-    if ((name == "" or item.name == name) and 
+    name = name.replace(" ", "").lower()
+    itemName = item.name.replace(" ", "").lower()
+    if ((name == "" or itemName == name) and 
         (startYear == None or item.releaseYear >= startYear) and 
         (endYear == None or item.releaseYear <= endYear) and 
         (genre == None or item.genre == genre)):

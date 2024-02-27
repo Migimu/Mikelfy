@@ -1,5 +1,5 @@
 from PySide6 import QtGui
-from PySide6.QtWidgets import QCheckBox, QComboBox, QGridLayout, QHBoxLayout, QLineEdit, QLabel, QMainWindow, QPushButton, QScrollArea, QVBoxLayout, QWidget
+from PySide6.QtWidgets import QCheckBox, QComboBox, QGridLayout, QHBoxLayout, QLineEdit, QLabel, QMainWindow, QPushButton, QScrollArea, QSpinBox, QVBoxLayout, QWidget
 from PySide6.QtCore import QSize, Qt,  Signal, Slot
 from controlador.ControladorBrowser import ControladorBrowser
 
@@ -18,13 +18,26 @@ class Filter(QWidget):
 
         layout = QGridLayout()
 
-        layout.addWidget(QCheckBox("Artistas"), 0, 0)
-        layout.addWidget(QCheckBox("Albumes"), 0, 1)
-        layout.addWidget(QCheckBox("Canciones"), 0, 2)
+        self.artistCheckbox = QCheckBox("Artistas")
+        self.artistCheckbox.setChecked(True)
+        layout.addWidget(self.artistCheckbox, 0, 0)
+        self.albumsCheckbox = QCheckBox("Albumes")
+        self.albumsCheckbox.setChecked(True)
+        layout.addWidget(self.albumsCheckbox, 0, 1)
+        self.songsCheckbox = QCheckBox("Canciones")
+        self.songsCheckbox.setChecked(True)
+        layout.addWidget(self.songsCheckbox, 0, 2)
         
-        layout.addWidget(QLineEdit(), 1, 0)
-        layout.addWidget(QLineEdit(), 1, 1)
-        layout.addWidget(QComboBox(), 1, 2)            
+        self.yearStartInput = QSpinBox()
+        self.yearStartInput.setMinimum(1900)
+        self.yearStartInput.setMaximum(2024)
+        layout.addWidget(self.yearStartInput, 1, 0)
+        self.yearEndInput = QSpinBox()
+        self.yearEndInput.setMinimum(1900)
+        self.yearEndInput.setMaximum(2024)
+        layout.addWidget(self.yearEndInput, 1, 1)
+        self.genreCombobox = QComboBox()
+        layout.addWidget(self.genreCombobox, 1, 2)            
         
         self.setLayout(layout)
 
@@ -99,16 +112,37 @@ class Browser(QMainWindow):
         self.show()
 
 
-    def BUSCAR(self):     
-       searchResults = self.cl.SEARCH(self.searchbar.searchBarInput.text())
+    def BUSCAR(self, word = None):     
+       inputWord = self.searchbar.searchBarInput.text()
+       showArtists = self.filter.artistCheckbox.isChecked()
+       showAlbums = self.filter.albumsCheckbox.isChecked()
+       showSongs = self.filter.songsCheckbox.isChecked()
+       searchResults = self.cl.GET_ALL_COINCIDENCES(inputWord if not word else word, showArtists, showAlbums, showSongs)
+       if len(searchResults) > 0:
+            results = self.BUILD_RESULTS(searchResults)
+            self.scroll.setAlignment(Qt.AlignHCenter)
+       else:
+           results = QLabel("No hay nada")
+           self.scroll.setAlignment(Qt.AlignCenter)
+       
+       self.scroll.setWidget(results)
+       
+    def BUILD_RESULTS(self, searchResults):
        results = QWidget()
        results.setFixedWidth(550)
        resultsLayout = QVBoxLayout()
        for item in searchResults:
-           resultsLayout.addWidget(self.BUILD_CARD(item))
+           widget = None
+           if isinstance(item, Artist):
+               widget = self.BUILD_ARTIST_CARD(item)
+           elif isinstance(item, Album):
+               widget = self.BUILD_ALBUM_CARD(item)
+           elif isinstance(item, Song):
+               widget = self.BUILD_SONG_CARD(item)
+           resultsLayout.addWidget(widget)
        results.setLayout(resultsLayout)
-       self.scroll.setAlignment(Qt.AlignHCenter)
-       self.scroll.setWidget(results)
+       
+       return results
        
     def TOGGLE_FILTER(self):
         if self.filter.isHidden():           
@@ -116,21 +150,57 @@ class Browser(QMainWindow):
         else:
             self.filter.hide()
            
-    def BUILD_CARD(self, item):
+    def BUILD_ARTIST_CARD(self, item):
        card = QWidget()
        card.setMinimumWidth(200)
        card.setFixedHeight(60)
-       # card.setStyleSheet("border: 1px solid")
        cardLayout = QHBoxLayout()
-       iconPath = ""
-       if isinstance(item, Artist):
-           iconPath = "artista"
-       elif isinstance(item, Album):
-           iconPath = "album"
-       elif isinstance(item, Song):
-           iconPath = "cancion"
+       iconButton = QPushButton()
+       iconButton.setIcon(QtGui.QIcon(absPath("imagenes/artista.png")))
+       iconButton.setIconSize(QSize(30, 30))
+       iconButton.setFlat(True)
+       iconButton.setEnabled(False)
+       cardLayout.addWidget(iconButton, 1)
+       artistNameButton = QPushButton(item.name)
+       artistNameButton.setStyleSheet("text-align:left;")
+       artistNameButton.setFixedWidth(520)
+       artistNameButton.setFixedHeight(50)
+       artistNameButton.clicked.connect(lambda: self.BUSCAR(item.name))
+       artistNameButton.setFlat(True)
+       cardLayout.addWidget(artistNameButton, 9)
+       card.setLayout(cardLayout)
+       
+       return card 
+    
+    def BUILD_ALBUM_CARD(self, item):
+       card = QWidget()
+       card.setMinimumWidth(200)
+       card.setFixedHeight(60)
+       cardLayout = QHBoxLayout()
+       iconButton = QPushButton()
+       iconButton.setIcon(QtGui.QIcon(absPath("imagenes/album.png")))
+       iconButton.setIconSize(QSize(30, 30))
+       iconButton.setFlat(True)
+       iconButton.setEnabled(False)
+       cardLayout.addWidget(iconButton, 1)
+       albumNameButton = QPushButton(item.name)
+       albumNameButton.setStyleSheet("text-align:left;")
+       albumNameButton.setFixedWidth(520)
+       albumNameButton.setFixedHeight(50)
+       albumNameButton.clicked.connect(lambda: self.BUSCAR(item.name))
+       albumNameButton.setFlat(True)
+       cardLayout.addWidget(albumNameButton, 9)
+       card.setLayout(cardLayout)
+       
+       return card 
+    
+    def BUILD_SONG_CARD(self, item):
+       card = QWidget()
+       card.setMinimumWidth(200)
+       card.setFixedHeight(60)
+       cardLayout = QHBoxLayout()
        songButton = QPushButton()
-       songButton.setIcon(QtGui.QIcon(absPath("imagenes/"+ iconPath +".png")))
+       songButton.setIcon(QtGui.QIcon(absPath("imagenes/cancion.png")))
        songButton.setIconSize(QSize(30, 30))
        songButton.setFlat(True)
        songButton.setEnabled(False)
@@ -144,7 +214,7 @@ class Browser(QMainWindow):
        cardLayout.addWidget(playButton, 1)
        card.setLayout(cardLayout)
        
-       return card             
+       return card                   
            
     @Slot()
     def closeEvent(self, event):
