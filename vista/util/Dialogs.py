@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QMessageBox
+from PySide6.QtWidgets import QInputDialog, QMessageBox
 
 
 def OPEN_ACCEPT_CANCEL_DIALOG(self, title, text, btn1 = "Aceptar", btn2 = "Cancelar"):
@@ -13,3 +13,10 @@ def OPEN_ACCEPT_CANCEL_DIALOG(self, title, text, btn1 = "Aceptar", btn2 = "Cance
 def OPEN_INFORMATION_DIALOG(title, text):
     QMessageBox.about(
             None, title,text)
+    
+def OPEN_TEXT_INPUT_DIALOG(title, text):
+    text, result = QInputDialog.getText(
+            None, title,text)
+  
+    if result:
+        return text

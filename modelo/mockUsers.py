@@ -1,6 +1,7 @@
 ﻿from controlador.clases.Album import Album
 from controlador.clases.Artist import Artist
 from controlador.clases.Genre import Genre
+from controlador.clases.Playlist import Playlist
 from controlador.clases.Song import Song
 from controlador.clases.User import User
 
@@ -24,31 +25,36 @@ artistas = [Artist(1, 'Nirvana', 'USA', 9000, 9000),
            Artist(7, 'Boney M.', 'Alemania', 8500, 8500)]
 
 global albumes 
-albumes = [Album(1, 'NirvanaAlbum', 180, 0, False, 0), 
-          Album(2, 'QueenAlbum', 180, 0, False, 0), 
-          Album(3, 'BeatlesAlbum', 180, 0, False, 0), 
-          Album(4, 'SteavieAlbum', 180, 0, False, 0), 
-          Album(5, 'FishAlbum', 180, 0, False, 0), 
-          Album(6, 'InterruptersAlbum', 180, 0, False, 0), 
-          Album(7, 'BoneyAlbum', 180, 0, False, 0), 
+albumes = [Album(1, 'NirvanaAlbum', 180, 1985, False, 0), 
+          Album(2, 'QueenAlbum', 180, 1980, False, 0), 
+          Album(3, 'BeatlesAlbum', 180, 1970, False, 0), 
+          Album(4, 'SteavieAlbum', 180, 1975, False, 0), 
+          Album(5, 'FishAlbum', 180, 1990, False, 0), 
+          Album(6, 'InterruptersAlbum', 180, 2010, False, 0), 
+          Album(7, 'BoneyAlbum', 180, 1965, False, 0), 
             ]
 
 global canciones 
-canciones = [Song(1, 'Smell Like Teen Spirit', 180, 0, 0, False, 0), 
-         Song(1, 'Come As You Are', 180, 0, 0, False, 0), 
-         Song(1, 'Bohemina Rhapsody', 360, 0, 0, False, 0),
-         Song(1, 'Another One Bites The Dust', 180, 0, 0, False, 0),
-         Song(1, 'Lucy In The Sky With Diamonds', 180, 0, 0, False, 0),
-         Song(1, 'Hey Jude', 180, 0, 0, False, 0),
-         Song(1, 'Superstition', 180, 0, 0, False, 0),
-         Song(1, 'Sir Duke', 180, 0, 0, False, 0),
-         Song(1, 'Beer', 180, 0, 0, False, 0),
-         Song(1, 'Take On Me', 180, 0, 0, False, 0),
-         Song(1, 'She Got Arrested', 180, 0, 0, False, 0),
-         Song(1, "She's Kerosene", 180, 0, 0, False, 0),
-         Song(1, 'Rasputin', 180, 0, 0, False, 0),
-         Song(1, 'Dady Cool', 180, 0, 0, False, 0)]
+canciones = [Song(1, 'Smell Like Teen Spirit', 180, 0, 1985, False, 0), 
+         Song(1, 'Come As You Are', 180, 0, 1985, False, 0), 
+         Song(1, 'Bohemina Rhapsody', 360, 0, 1980, False, 0),
+         Song(1, 'Another One Bites The Dust', 180, 0, 1980, False, 0),
+         Song(1, 'Lucy In The Sky With Diamonds', 180, 0, 1970, False, 0),
+         Song(1, 'Hey Jude', 180, 0, 1970, False, 0),
+         Song(1, 'Superstition', 180, 0, 1975, False, 0),
+         Song(1, 'Sir Duke', 180, 0, 1975, False, 0),
+         Song(1, 'Beer', 180, 0, 1990, False, 0),
+         Song(1, 'Take On Me', 180, 0, 1990, False, 0),
+         Song(1, 'She Got Arrested', 180, 0, 2010, False, 0),
+         Song(1, "She's Kerosene", 180, 0, 2010, False, 0),
+         Song(1, 'Rasputin', 180, 0, 1965, False, 0),
+         Song(1, 'Dady Cool', 180, 0, 1965, False, 0)]
 
+global listaDeReproduccion 
+listaDeReproduccion = [Playlist(1, 'Rocklist', 10, 1), 
+         Playlist(2, 'Discolist', 5, 1), 
+         Playlist(3, 'Skalist', 7, 1)]
+         
 global generos 
 generos = [Genre(1, 'Rock'), 
             Genre(2, 'Disco'), 

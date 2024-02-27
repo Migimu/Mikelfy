@@ -1,5 +1,5 @@
 from modelo.mockUsers import canciones
-from vista.utils import FILTER
+from vista.util.Utils import FILTER
 
 class Songs:
 

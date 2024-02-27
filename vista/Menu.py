@@ -1,10 +1,11 @@
 ﻿from PySide6 import QtGui
 from PySide6.QtCore import QSize, Signal, Slot
 from PySide6.QtWidgets import QGridLayout, QMessageBox, QPushButton, QWidget
-from vista.Browser import Browser
+from vista.browser.Browser import Browser
 
-from vista.Dialogs import OPEN_ACCEPT_CANCEL_DIALOG
-from vista.utils import absPath
+from vista.util.Dialogs import OPEN_ACCEPT_CANCEL_DIALOG
+from vista.playlistManager.PlaylistManager import PlaylistManager
+from vista.util.Utils import absPath
 
 
 class Menu(QWidget):
@@ -57,9 +58,9 @@ class Menu(QWidget):
         self.browser.show()
         
     def OPEN_PLAYLISTS_WINDOW(self):              
-        # self.newPassword = NewPassword(user)          
-        # self.newPassword.closed.connect(self.ON_CHILD_CLOSED)
-        # self.newPassword.show()
+        self.playlistManager = PlaylistManager(self.user.id)          
+        self.playlistManager.closed.connect(self.ON_CHILD_CLOSED)
+        self.playlistManager.show()
         pass
         
     def LOGOUT(self):              

@@ -1,12 +1,14 @@
-from clases.Playlist import Playlist
-from clases.User import User
+from modelo.mockUsers import listaDeReproduccion
+from controlador.clases.Playlist import Playlist
+from controlador.clases.User import User
 
 class Playlists:
     
-    # __playlists: [Playlist]
-    
     def __init__(self, playlists = []):
-        self.__playlists = playlists
+        if len(playlists) == 0:
+            self.__playlists = listaDeReproduccion
+        else:            
+            self.__playlists = playlists                
 
     def GET_PLAYLISTS(self):
         return self.__playlists
@@ -14,10 +16,10 @@ class Playlists:
     def GET_PLAYLIST_BY_NAME(self):
         return ""
        
-    def GET_PLAYLISTS_BY_USER(self, user: User):
+    def GET_PLAYLISTS_BY_USER(self, userId: User):
         userPlaylists = []
         for playlist in self.__playlists:
-            if playlist.GET_OWNER().GET_ID() == user.GET_ID():
+            if playlist.owner == userId:
                 userPlaylists.append(playlist)
         
         return userPlaylists
@@ -31,8 +33,10 @@ class Playlists:
     def GET_USER_PLAYLISTS(self):
         return True
 
-    def CRATE_PLAYLIST(self, playlist: Playlist):
-        return True
+    def ADD_PLAYLIST(self, name:str, followers: int, userId: int):
+        playlist = Playlist(0, name, followers, userId)
+        self.__playlists.append(playlist)
+        # return playlist
 
     def UPDATE_PLAYLIST(self, playlist: Playlist):
         return True

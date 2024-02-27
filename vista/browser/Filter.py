@@ -2,10 +2,10 @@ from PySide6 import QtGui
 from PySide6.QtWidgets import QCheckBox, QComboBox, QGridLayout, QPushButton, QSpinBox, QWidget
 from PySide6.QtCore import QSize
 
-from vista.utils import absPath
+from vista.util.Utils import absPath
 
 class Filter(QWidget):
-    def __init__(self):
+    def __init__(self, genres):
         super().__init__()
         
         self.resize(600, 400)
@@ -32,7 +32,10 @@ class Filter(QWidget):
         self.yearEndInput.setMaximum(2024)
         self.yearEndInput.setValue(2024)
         layout.addWidget(self.yearEndInput, 1, 1)
-        self.genreCombobox = QComboBox()
+        self.genreCombobox = QComboBox()        
+        for genre in genres:
+            self.genreCombobox.addItem(genre.name)
+        self.genreCombobox.setCurrentIndex(-1)
         layout.addWidget(self.genreCombobox, 1, 2)   
         
         self.clearFilters = QPushButton()

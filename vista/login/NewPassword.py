@@ -2,12 +2,13 @@
 from PySide6.QtCore import Qt, Signal, Slot
 
 from controlador.ControladorLogin import ControladorLogin
-from vista.Dialogs import OPEN_INFORMATION_DIALOG
+from vista.util.Dialogs import OPEN_INFORMATION_DIALOG
 
 class NewPassword(QWidget):
     closed = Signal()
     def __init__(self, user):
         super().__init__()
+        self.setWindowTitle("Nueva contraseña")
         self.user = user
         self.cl:ControladorLogin = ControladorLogin()
 

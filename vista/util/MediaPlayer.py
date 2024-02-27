@@ -8,12 +8,11 @@
 
 import sys
 from PySide6.QtCore import QStandardPaths, Qt, Slot
-from PySide6.QtGui import QAction, QIcon, QKeySequence
-from PySide6.QtWidgets import (QApplication, QDialog, QFileDialog, QHBoxLayout,
-                               QMainWindow, QPushButton, QSlider, QStyle, QToolBar, QWidget)
+from PySide6.QtGui import QIcon
+from PySide6.QtWidgets import (QDialog, QFileDialog, QHBoxLayout,
+                               QPushButton, QSlider, QStyle, QWidget)
 from PySide6.QtMultimedia import (QAudioOutput, QMediaFormat,
                                   QMediaPlayer)
-from PySide6.QtMultimediaWidgets import QVideoWidget
 
 
 AVI = "video/x-msvideo"  # AVI

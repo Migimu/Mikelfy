@@ -1,21 +1,22 @@
 from PySide6 import QtGui
-from PySide6.QtWidgets import QCheckBox, QComboBox, QGridLayout, QHBoxLayout, QLineEdit, QLabel, QMainWindow, QPushButton, QScrollArea, QSpinBox, QVBoxLayout, QWidget
+from PySide6.QtWidgets import QHBoxLayout, QLabel, QPushButton, QScrollArea, QVBoxLayout, QWidget
 from PySide6.QtCore import QSize, Qt,  Signal, Slot
 from controlador.ControladorBrowser import ControladorBrowser
 
 from controlador.clases.Artist import Artist
 from controlador.clases.Album import Album
 from controlador.clases.Song import Song
-from vista.Filter import Filter
-from vista.Searchbar import Searchbar
-from vista.mediaPlayer import MediaPlayer
-from vista.utils import absPath      
+from vista.browser.Filter import Filter
+from vista.browser.Searchbar import Searchbar
+from vista.util.MediaPlayer import MediaPlayer
+from vista.util.Utils import absPath      
 
-# class Browser(QWidget):
-class Browser(QMainWindow):
+class Browser(QWidget):
+# class Browser(QMainWindow):
     closed = Signal()
     def __init__(self, user):
         super().__init__()
+        self.setWindowTitle("Buscador")
         self.user = user
         self.cl:ControladorBrowser = ControladorBrowser()
         self.searchText = ""
@@ -30,15 +31,14 @@ class Browser(QMainWindow):
         self.searchbar.backButton.clicked.connect(self.VOLVER)
         layout.addWidget(self.searchbar, 1)
 
-        self.filter = Filter()       
+        self.filter = Filter(self.cl.GET_ALL_GENRES())       
         self.filter.hide()
         layout.addWidget(self.filter, 1)
         
         self.scroll = QScrollArea()        
         self.scroll.setFixedWidth(600)
         self.scroll.setFixedHeight(400)        
-        self.scroll.setAlignment(Qt.AlignCenter)        
-        self.scroll.setWidget(QLabel("No hay nada"))
+        self.BUSCAR()
         layout.addWidget(self.scroll, 7, Qt.AlignCenter)
         
 
@@ -46,14 +46,9 @@ class Browser(QMainWindow):
         self.mediaPlayer.setFixedWidth(600)
         layout.addWidget(self.mediaPlayer, 1, Qt.AlignCenter)
 
-        layout.setSpacing(0)                         
-        
-        widget = QWidget()
-        widget.setLayout(layout)
+        layout.setSpacing(0)                                
 
-        self.setCentralWidget(widget)
-
-        self.show()
+        self.setLayout(layout)
 
 
     def BUSCAR(self, word = None):     
@@ -61,7 +56,10 @@ class Browser(QMainWindow):
        showArtists = self.filter.artistCheckbox.isChecked()
        showAlbums = self.filter.albumsCheckbox.isChecked()
        showSongs = self.filter.songsCheckbox.isChecked()
-       searchResults = self.cl.GET_ALL_COINCIDENCES(inputWord if not word else word, showArtists, showAlbums, showSongs)
+       startYear = self.filter.yearStartInput.value()
+       endYear = self.filter.yearEndInput.value()
+       genreId = self.filter.genreCombobox.currentIndex()
+       searchResults = self.cl.GET_ALL_COINCIDENCES(inputWord if not word else word, showArtists, showAlbums, showSongs, genreId, startYear, endYear)
        if len(searchResults) > 0:
             results = self.BUILD_RESULTS(searchResults)
             self.scroll.setAlignment(Qt.AlignHCenter)

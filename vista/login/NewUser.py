@@ -2,12 +2,13 @@ from PySide6.QtWidgets import QCalendarWidget, QComboBox, QLineEdit, QLabel, QPu
 from PySide6.QtCore import Qt,  Signal, Slot
 
 from controlador.ControladorLogin import ControladorLogin
-from vista.Dialogs import OPEN_INFORMATION_DIALOG
+from vista.util.Dialogs import OPEN_INFORMATION_DIALOG
 
 class NewUser(QWidget):
     closed = Signal()
     def __init__(self, username):
         super().__init__()
+        self.setWindowTitle("Nuevo usuario")
         self.cl:ControladorLogin = ControladorLogin()
         
         self.resize(600, 400)

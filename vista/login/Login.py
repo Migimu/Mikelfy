@@ -3,7 +3,7 @@ from PySide6.QtWidgets import QMainWindow, QLineEdit, QLabel, QPushButton, QGrid
 from PySide6.QtCore import Qt, Slot
 
 from controlador.ControladorLogin import ControladorLogin
-from vista.Dialogs import OPEN_ACCEPT_CANCEL_DIALOG
+from vista.util.Dialogs import OPEN_ACCEPT_CANCEL_DIALOG
 from vista.login.NewPassword import NewPassword
 from vista.login.NewUser import NewUser
 
@@ -11,6 +11,7 @@ class MainWindow(QMainWindow):
 
     def __init__(self):
         super().__init__()
+        self.setWindowTitle("Login")
         self.cl:ControladorLogin = ControladorLogin()
         
         self.resize(500, 300)
