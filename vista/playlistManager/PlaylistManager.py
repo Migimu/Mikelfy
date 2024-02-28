@@ -1,70 +1,75 @@
-from PySide6 import QtGui
+﻿from PySide6 import QtGui
 from PySide6.QtCore import QSize, Qt, Signal, Slot
-from PySide6.QtWidgets import QHBoxLayout, QLabel, QPushButton, QScrollArea, QVBoxLayout, QWidget
+from PySide6.QtWidgets import QHBoxLayout, QLabel, QMessageBox, QPushButton, QScrollArea, QVBoxLayout, QWidget
 
 from controlador.ControladorPlaylist import ControladorPlaylist
-from vista.util.Dialogs import OPEN_TEXT_INPUT_DIALOG
+from vista.util.Dialogs import OPEN_ACCEPT_CANCEL_DIALOG, OPEN_INFORMATION_DIALOG, OPEN_TEXT_INPUT_DIALOG
 from vista.util.MediaPlayer import MediaPlayer
 from vista.util.Utils import absPath
 
 
 class PlaylistManager(QWidget):
     closed = Signal()
-    gestor = None
+    mainLayout = QVBoxLayout()
     def __init__(self, userId):
         super().__init__()
         self.setWindowTitle("Gestor lista de reproducciones")
         self.userId = userId
+        self.selectedPlaylist = None
         self.cl:ControladorPlaylist = ControladorPlaylist()
         self.searchText = ""
         self.resize(600, 400)
         self.setMaximumSize(600, 400)
+        self.BUILD_MAIN_LAYOUT()
+        self.setLayout(self.mainLayout)
         
-        mainLayout = QVBoxLayout()
+    def BUILD_MAIN_LAYOUT(self):
         
+        for i in reversed(range(self.mainLayout.count())): 
+            self.mainLayout.itemAt(i).widget().deleteLater()
+
         backButton = QPushButton()
         backButton.clicked.connect(self.VOLVER)
         backButton.setIcon(QtGui.QIcon(absPath("imagenes/back.png")))
         backButton.setFixedSize(QSize(30,30))
-        mainLayout.addWidget(backButton, 1, Qt.AlignLeft)
+        self.mainLayout.addWidget(backButton, 1, Qt.AlignLeft)
         
-        self.gestor = QWidget()
-        self.gestor.setLayout(self.BUILD_MANAGER_LAYOUT())
-        mainLayout.addWidget(self.gestor)
+        gestor = QWidget()
+        gestor.setLayout(self.BUILD_MANAGER_LAYOUT())
+        self.mainLayout.addWidget(gestor)
        
         mediaPlayer = MediaPlayer()
         mediaPlayer.setFixedWidth(600)
-        mainLayout.addWidget(mediaPlayer, 1, Qt.AlignCenter)
-
-        self.setLayout(mainLayout)
+        self.mainLayout.addWidget(mediaPlayer, 1, Qt.AlignCenter)
+        
         
     def BUILD_MANAGER_LAYOUT(self):
         managerLayout = QHBoxLayout()
         
-        self.playlistList = QScrollArea()
-        lista = QWidget()      
+        self.playlistList = QScrollArea()     
         listaLayout = QVBoxLayout()
         
         playlists = self.cl.GET_USER_PLAYLISTS(self.userId)
         for playlist in playlists:
             listaLayout.addWidget(self.BUILD_PLAYLIST_CARD(playlist))
-        listaLayout.addWidget(self.BUILD_ADD_CARD())
+        listaLayout.addWidget(self.BUILD_ADD_PLAYLIST_CARD())
             
-        lista.setLayout(listaLayout)
-        self.playlistList.setWidget(lista)
+        self.playlistList.setLayout(listaLayout)
         managerLayout.addWidget(self.playlistList, 5)
-
-        self.vistaList = QScrollArea()
-        self.vistaList.setAlignment(Qt.AlignCenter)
-        vista = QWidget()
-        vistaLayout = QVBoxLayout()
+       
+        if self.selectedPlaylist == None:
+            managerLayout.addWidget(QLabel("Selecciona una playlist"), 5)
+        else:
+            self.vistaList = QScrollArea()
+            self.vistaList.setAlignment(Qt.AlignCenter)
+            vistaLayout = QVBoxLayout()
+            vistaLayout.addWidget(self.selectedPlaylist.name, 3) 
+            for song in self.cl.GET_SONGS_BY_ID(self.selectedPlaylist.songs):
+                vistaLayout.addWidget(self.BUILD_SONG_CARD(song))
+            vistaLayout.addWidget(self.BUILD_ADD_SONG_CARD())
+            self.vistaList.setLayout(vistaLayout)
         
-        labelNada = QLabel("Selecciona una playlist")
-        vistaLayout.addWidget(labelNada)      
-
-        vista.setLayout(vistaLayout)
-        self.vistaList.setWidget(vista)
-        managerLayout.addWidget(self.vistaList, 5)
+            managerLayout.addWidget(self.vistaList, 5)
         
         return managerLayout
     
@@ -83,18 +88,20 @@ class PlaylistManager(QWidget):
        editButton.setIconSize(QSize(20, 20))
        editButton.setIcon(QtGui.QIcon(absPath("imagenes/editar.png")))
        editButton.setFlat(True)
+       editButton.clicked.connect(lambda: self.EDITAR_PLAYLIST(playlist.id))
        cardLayout.addWidget(editButton, 1)
        deleteButton = QPushButton()
        deleteButton.setFixedSize(50, 50)
        deleteButton.setIconSize(QSize(20, 20))
        deleteButton.setIcon(QtGui.QIcon(absPath("imagenes/borrar.png")))
        deleteButton.setFlat(True)
+       deleteButton.clicked.connect(lambda: self.ELIMINAR_PLAYLIST(playlist.id))
        cardLayout.addWidget(deleteButton, 1)
        card.setLayout(cardLayout)
        
        return card 
    
-    def BUILD_ADD_CARD(self):
+    def BUILD_ADD_PLAYLIST_CARD(self):
        card = QWidget()
        cardLayout = QHBoxLayout()
        iconButton = QPushButton()
@@ -112,17 +119,70 @@ class PlaylistManager(QWidget):
        card.setLayout(cardLayout)
        
        return card 
+   
+    def BUILD_ADD_SONG_CARD(self):
+       card = QWidget()
+       cardLayout = QHBoxLayout()
+       iconButton = QPushButton()
+       iconButton.setIcon(QtGui.QIcon(absPath("imagenes/addPlaylist.png")))
+       iconButton.setIconSize(QSize(30, 30))
+       iconButton.setFlat(True)
+       iconButton.setEnabled(False)
+       cardLayout.addWidget(iconButton, 1)
+       artistNameButton = QPushButton("Nueva playlist")
+       artistNameButton.setStyleSheet("text-align:left;")
+       artistNameButton.setFixedHeight(50)
+       artistNameButton.clicked.connect(self.CREAR_PLAYLIST)
+       artistNameButton.setFlat(True)
+       cardLayout.addWidget(artistNameButton, 9)
+       card.setLayout(cardLayout)
+       
+       return card 
+   
+    def BUILD_SONG_CARD(self, item):
+       card = QWidget()
+       card.setMinimumWidth(200)
+       card.setFixedHeight(60)
+       cardLayout = QHBoxLayout()
+       songButton = QPushButton()
+       songButton.setIcon(QtGui.QIcon(absPath("imagenes/cancion.png")))
+       songButton.setIconSize(QSize(30, 30))
+       songButton.setFlat(True)
+       songButton.setEnabled(False)
+       cardLayout.addWidget(songButton, 1)
+       cardLayout.addWidget(QLabel(item.name), 8)
+       playButton = QPushButton()
+       playButton.setFixedSize(50, 50)
+       playButton.setIconSize(QSize(30, 30))
+       playButton.setIcon(QtGui.QIcon(absPath("imagenes/play.png")))
+       playButton.setFlat(True)
+       cardLayout.addWidget(playButton, 1)
+       card.setLayout(cardLayout)
+       
+       return card    
     
     def CREAR_PLAYLIST(self):
-       title = OPEN_TEXT_INPUT_DIALOG("Nueva lista de reproduccion", "Introduce el titulo de la playlist")
+       title = OPEN_TEXT_INPUT_DIALOG("Nueva lista de reproduccion", "Introduce el titulo de la nueva lista de reproduccion")
        if title != None:
            self.cl.CREATE_PLAYLISTS(title, self.userId) 
-           self.gestor.setLayout(self.BUILD_MANAGER_LAYOUT())
-           self.gestor.update()
-           # 
+           self.REFRESCAR_PANTALLA()
+           
    
-    def ELIMINAR_PLAYLIST(self):
-       pass 
+    def ELIMINAR_PLAYLIST(self, id):
+        respuesta = OPEN_ACCEPT_CANCEL_DIALOG(self, "Eliminar lista de repoduccion", "¿Seguro que quieres eliminar la lista de reproduccion?")
+        if respuesta == QMessageBox.Ok:
+            self.cl.DELETE_PLAYLISTS(id)            
+            OPEN_INFORMATION_DIALOG("Eliminado correctamente", "La lista de reproduccion ha sido eliminada correctamente")
+            self.REFRESCAR_PANTALLA()
+            
+            
+    def EDITAR_PLAYLIST(self, playlist):
+       self.selectedPlaylist = playlist
+       self.REFRESCAR_PANTALLA()
+            
+    def REFRESCAR_PANTALLA(self):
+        self.BUILD_MAIN_LAYOUT()
+        self.setLayout(self.mainLayout)    
     
     def VOLVER(self):
        self.close() 

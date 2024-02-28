@@ -16,7 +16,7 @@ class Users(object):
         encontrado = False
         userEncontrado = None
         cont = 0
-        while encontrado and cont < len(self.__users):
+        while not encontrado and cont < len(self.__users):
             user: User = self.__users[cont]
             if user.id == id:
                 encontrado = True
@@ -38,6 +38,7 @@ class Users(object):
         return userEncontrado
     
     def ADD_USER(self, user: User):
+        user.id = self.GET_LAST_ID()
         self.__users.append(user)
         usuarios = self.__users
 
@@ -61,7 +62,7 @@ class Users(object):
         if lenght == 0:
             id = 1
         else:
-            id = int(self.__users[lenght - 1].GET_ID()) + 1         
+            id = int(self.__users[lenght - 1].id) + 1         
         return id
 
     def GET_LENGHT(self):        

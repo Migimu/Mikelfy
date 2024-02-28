@@ -16,7 +16,19 @@ class Playlists:
     def GET_PLAYLIST_BY_NAME(self):
         return ""
        
-    def GET_PLAYLISTS_BY_USER(self, userId: User):
+    def GET_PLAYLIST_BY_ID(self, id):
+        encontrado = False
+        playlistEncontrado = None
+        cont = 0
+        while not encontrado and cont < len(self.__playlists):
+            playlist: Playlist = self.__playlists[cont]
+            if playlist.id == id:
+                encontrado = True
+                playlistEncontrado = playlist
+            cont += 1
+        return playlistEncontrado
+
+    def GET_PLAYLISTS_BY_USER(self, userId):
         userPlaylists = []
         for playlist in self.__playlists:
             if playlist.owner == userId:
@@ -28,21 +40,43 @@ class Playlists:
         return ""
 
     def GET_TOP_PLAYLISTS_BY_COUNTRY(self):
-        return ""
-    
-    def GET_USER_PLAYLISTS(self):
-        return True
+        return ""   
 
     def ADD_PLAYLIST(self, name:str, followers: int, userId: int):
-        playlist = Playlist(0, name, followers, userId)
+        playlist = Playlist(self.GET_LAST_ID(), name, followers, userId)
         self.__playlists.append(playlist)
-        # return playlist
+        listaDeReproduccion = self.__playlists
 
-    def UPDATE_PLAYLIST(self, playlist: Playlist):
-        return True
+    def UPDATE_PLAYLIST(self, id: int, name:str, songsId = []):
+        encontrado = False
+        cont = 0
+        while not encontrado and cont < len(self.__playlists):
+            playlist: Playlist = self.__playlists[cont]
+            if playlist.id == id:
+                encontrado = True
+                self.__playlists[cont].name = name
+                self.__playlists[cont].songs = songsId
+            cont += 1
+        listaDeReproduccion = self.__playlists
 
-    def DELETE_PLAYLIST(self, playlist: Playlist):
-        return True
+    def DELETE_PLAYLIST(self, id: int):
+        encontrado = False
+        cont = 0
+        while not encontrado and cont < len(self.__playlists):
+            playlist: Playlist = self.__playlists[cont]
+            if playlist.id == id:
+                encontrado = True
+                self.__playlists.pop(cont)
+            cont += 1
+        listaDeReproduccion = self.__playlists
 
+    def GET_LAST_ID(self):
+        id = 0
+        lenght = len(self.__playlists)
+        if lenght == 0:
+            id = 1
+        else:
+            id = int(self.__playlists[lenght - 1].id) + 1         
+        return id
 
 
