@@ -47,6 +47,8 @@ class PlaylistManager(QWidget):
         managerLayout = QHBoxLayout()
         
         self.playlistList = QScrollArea()     
+        list = QWidget()
+        self.playlistList.setFixedHeight(300)     
         listaLayout = QVBoxLayout()
         
         playlists = self.cl.GET_USER_PLAYLISTS(self.userId)
@@ -54,20 +56,35 @@ class PlaylistManager(QWidget):
             listaLayout.addWidget(self.BUILD_PLAYLIST_CARD(playlist))
         listaLayout.addWidget(self.BUILD_ADD_PLAYLIST_CARD())
             
-        self.playlistList.setLayout(listaLayout)
+        list.setLayout(listaLayout)
+        self.playlistList.setWidget(list)
         managerLayout.addWidget(self.playlistList, 5)
        
         if self.selectedPlaylist == None:
-            managerLayout.addWidget(QLabel("Selecciona una playlist"), 5)
+            labelNada = QLabel("Selecciona una playlist")           
+            managerLayout.addWidget(labelNada, 5, Qt.AlignCenter)
         else:
             self.vistaList = QScrollArea()
+            self.vista = QWidget()
+            self.vista.setFixedSize(260, 300)
             self.vistaList.setAlignment(Qt.AlignCenter)
             vistaLayout = QVBoxLayout()
-            vistaLayout.addWidget(self.selectedPlaylist.name, 3) 
+            vistaLayout.setContentsMargins(0, 0, 0, 0)
+
+            vistaLayout.setSpacing(0)
+            nameLabel = QLabel(self.selectedPlaylist.name)
+            nameLabel.setFixedHeight(100)
+            nameLabel.setAlignment(Qt.AlignCenter)
+            nameLabel.setStyleSheet("""QLabel {
+                                        background-color: green;
+                                        font-size: 32px;
+                                    }""")
+            vistaLayout.addWidget(nameLabel) 
             for song in self.cl.GET_SONGS_BY_ID(self.selectedPlaylist.songs):
                 vistaLayout.addWidget(self.BUILD_SONG_CARD(song))
             vistaLayout.addWidget(self.BUILD_ADD_SONG_CARD())
-            self.vistaList.setLayout(vistaLayout)
+            self.vista.setLayout(vistaLayout)
+            self.vistaList.setWidget(self.vista)
         
             managerLayout.addWidget(self.vistaList, 5)
         
@@ -88,7 +105,7 @@ class PlaylistManager(QWidget):
        editButton.setIconSize(QSize(20, 20))
        editButton.setIcon(QtGui.QIcon(absPath("imagenes/editar.png")))
        editButton.setFlat(True)
-       editButton.clicked.connect(lambda: self.EDITAR_PLAYLIST(playlist.id))
+       editButton.clicked.connect(lambda: self.EDITAR_PLAYLIST(playlist))
        cardLayout.addWidget(editButton, 1)
        deleteButton = QPushButton()
        deleteButton.setFixedSize(50, 50)
@@ -122,6 +139,7 @@ class PlaylistManager(QWidget):
    
     def BUILD_ADD_SONG_CARD(self):
        card = QWidget()
+       card.setFixedHeight(50)
        cardLayout = QHBoxLayout()
        iconButton = QPushButton()
        iconButton.setIcon(QtGui.QIcon(absPath("imagenes/addPlaylist.png")))
@@ -141,8 +159,6 @@ class PlaylistManager(QWidget):
    
     def BUILD_SONG_CARD(self, item):
        card = QWidget()
-       card.setMinimumWidth(200)
-       card.setFixedHeight(60)
        cardLayout = QHBoxLayout()
        songButton = QPushButton()
        songButton.setIcon(QtGui.QIcon(absPath("imagenes/cancion.png")))
