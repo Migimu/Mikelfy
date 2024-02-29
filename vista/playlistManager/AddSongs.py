@@ -14,17 +14,19 @@ class AddSongs(QWidget):
         self.setWindowTitle("Buscador")
         self.playlist = playlist
         self.songs = self.cl.GET_SONGS()
-        self.selectedSongs = []
+        self.selectedSongs = self.playlist.songs
         self.resize(600, 400)
         self.setMaximumSize(600, 400)
 
         layout = QVBoxLayout()       
 
         self.name = QLineEdit(playlist.name)       
-        layout.addWidget(self.name, 1)
+        self.name.setFixedWidth(200)         
+        layout.addWidget(self.name, 1, Qt.AlignCenter)
         
         self.scroll = QScrollArea()        
-        self.scroll.setFixedWidth(600)
+        self.scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        self.scroll.setFixedWidth(360)
         self.scroll.setFixedHeight(400)        
         self.scroll.setWidget(self.BUILD_RESULTS())
         layout.addWidget(self.scroll, 7, Qt.AlignCenter)
@@ -34,10 +36,12 @@ class AddSongs(QWidget):
         buttonLayout = QHBoxLayout()
         
         acceptButton = QPushButton("Aceptar")
+        acceptButton.setFixedWidth(100)
         acceptButton.clicked.connect(self.ACCEPT_CHANGES)
         buttonLayout.addWidget(acceptButton)
         
         cancelButton = QPushButton("Cancelar")
+        cancelButton.setFixedWidth(100)
         cancelButton.clicked.connect(self.CANCEL)
         buttonLayout.addWidget(cancelButton)    
         
@@ -51,7 +55,7 @@ class AddSongs(QWidget):
        
     def BUILD_RESULTS(self):
        results = QWidget()
-       results.setFixedWidth(550)
+       results.setFixedWidth(350)
        resultsLayout = QVBoxLayout()
        for song in self.songs:
            if not song.id in self.playlist.songs:  

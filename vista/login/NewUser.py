@@ -1,14 +1,17 @@
+from PySide6 import QtGui
 from PySide6.QtWidgets import QCalendarWidget, QComboBox, QLineEdit, QLabel, QPushButton, QGridLayout, QWidget
-from PySide6.QtCore import Qt,  Signal, Slot
+from PySide6.QtCore import QSize, Qt,  Signal, Slot
 
 from controlador.ControladorLogin import ControladorLogin
 from vista.util.Dialogs import OPEN_INFORMATION_DIALOG
+from vista.util.Utils import absPath
 
 class NewUser(QWidget):
     closed = Signal()
     def __init__(self, username):
         super().__init__()
         self.setWindowTitle("Nuevo usuario")
+        self.passwordVisibility = False
         self.cl:ControladorLogin = ControladorLogin()
         
         self.resize(600, 400)
@@ -16,57 +19,74 @@ class NewUser(QWidget):
 
         formulario = QGridLayout()
         
-        nameLabel = QLabel("Nombre: ")
         self.name = QLineEdit()
+        self.name.setPlaceholderText("Nombre")
+        self.name.setEchoMode(QLineEdit.Password)
         self.name.setFixedWidth(150)
+        self.name.setFixedHeight(30)
              
-        userLabel = QLabel("Usuario: ")
         self.user = QLineEdit()
+        self.user.setPlaceholderText("Usuario")
+        self.user.setEchoMode(QLineEdit.Password)
         self.user.setFixedWidth(150)
+        self.user.setFixedHeight(30)
         self.user.setText(username)
         
-        emailLabel = QLabel("Email: ")
         self.email = QLineEdit()    
+        self.email.setPlaceholderText("Email")
+        self.email.setEchoMode(QLineEdit.Password)
         self.email.setFixedWidth(150)
+        self.email.setFixedHeight(30)
         
-        countryLabel = QLabel("Pais: ")
         self.country =  QComboBox()
         self.country.addItems(['España', 'Francia', 'Portugal', 'Alemania'])
         
-        birthDateLabel = QLabel("Fecha de nacimiento: ")
         self.birthDate = QCalendarWidget()    
         self.birthDate.setFixedWidth(150)
         
-        passwordLabel = QLabel("Contraseña: ")
         self.password = QLineEdit()    
         self.password.setEchoMode(QLineEdit.Password)  
+        self.password.setPlaceholderText("Contraseña")
+        self.password.setEchoMode(QLineEdit.Password)
         self.password.setFixedWidth(150)
+        self.password.setFixedHeight(30)
         
-        button = QPushButton("Aceptar")
-        button.setFixedWidth(75)
-        button.clicked.connect(self.CREAR)
+        self.passwordButton = QPushButton()
+        self.passwordButton.clicked.connect(self.TOGGLE_PASSWORD)
+        self.passwordButton.setFixedSize(30, 30)
+        self.passwordButton.setIconSize(QSize(20, 20))
+        self.passwordButton.setIcon(QtGui.QIcon(absPath("imagenes/hide.png")))
         
-        formulario.addWidget(nameLabel, 0, 0, Qt.AlignRight)
-        formulario.addWidget(self.name, 0, 1, Qt.AlignLeft)
+        buttonAccept = QPushButton("Aceptar")
+        buttonAccept.setFixedWidth(75)
+        buttonAccept.clicked.connect(self.CREAR)
         
-        formulario.addWidget(userLabel, 1, 0, Qt.AlignRight)
-        formulario.addWidget(self.user, 1, 1, Qt.AlignLeft)
+        buttonClose = QPushButton("Cancelar")
+        buttonClose.setFixedWidth(75)
+        buttonClose.clicked.connect(self.close)
         
-        formulario.addWidget(emailLabel, 2, 0, Qt.AlignRight)
-        formulario.addWidget(self.email, 2, 1, Qt.AlignLeft)
+        formulario.addWidget(self.name, 0, 1, Qt.AlignHCenter)      
+        formulario.addWidget(self.user, 1, 1, Qt.AlignHCenter)       
+        formulario.addWidget(self.email, 2, 1, Qt.AlignHCenter)        
+        formulario.addWidget(self.country, 3, 1, Qt.AlignHCenter)       
+        formulario.addWidget(self.birthDate, 4, 1, Qt.AlignHCenter)
+        formulario.addWidget(self.password, 5, 1, Qt.AlignHCenter)
+        formulario.addWidget(self.passwordButton, 5, 2, Qt.AlignLeft)
         
-        formulario.addWidget(countryLabel, 3, 0, Qt.AlignRight)
-        formulario.addWidget(self.country, 3, 1, Qt.AlignLeft)
-        
-        formulario.addWidget(birthDateLabel, 4, 0, Qt.AlignRight)
-        formulario.addWidget(self.birthDate, 4, 1, Qt.AlignLeft)
-
-        formulario.addWidget(passwordLabel, 5, 0, Qt.AlignRight)
-        formulario.addWidget(self.password, 5, 1, Qt.AlignLeft)
-        formulario.addWidget(button, 6, 0, 1, 2, Qt.AlignHCenter)
+        formulario.addWidget(buttonClose, 6, 0, 1, 2, Qt.AlignRight)  
+        formulario.addWidget(buttonAccept, 6, 1, 1, 2, Qt.AlignLeft)   
         
         self.setLayout(formulario)
 
+    def TOGGLE_PASSWORD(self):
+        if self.passwordVisibility:
+            self.password.setEchoMode(QLineEdit.Password)
+            self.passwordButton.setIcon(QtGui.QIcon(absPath("imagenes/hide.png")))
+            self.passwordVisibility = False
+        else:
+            self.password.setEchoMode(QLineEdit.Normal)
+            self.passwordButton.setIcon(QtGui.QIcon(absPath("imagenes/show.png")))
+            self.passwordVisibility = True
 
     def CREAR(self):
        isValid = self.cl.VALIDATE_USERNAME(self.user.text())

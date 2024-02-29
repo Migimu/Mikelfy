@@ -1,11 +1,13 @@
+from PySide6 import QtGui
 from vista.Menu import Menu
 from PySide6.QtWidgets import QMainWindow, QLineEdit, QLabel, QPushButton, QGridLayout, QWidget, QMessageBox
-from PySide6.QtCore import Qt, Slot
+from PySide6.QtCore import QSize, Qt, Slot
 
 from controlador.ControladorLogin import ControladorLogin
 from vista.util.Dialogs import OPEN_ACCEPT_CANCEL_DIALOG
 from vista.login.NewPassword import NewPassword
 from vista.login.NewUser import NewUser
+from vista.util.Utils import absPath
 
 class MainWindow(QMainWindow):
 
@@ -13,30 +15,38 @@ class MainWindow(QMainWindow):
         super().__init__()
         self.setWindowTitle("Login")
         self.cl:ControladorLogin = ControladorLogin()
-        
+        self.passwordVisibility = False
+
         self.resize(500, 300)
         self.setMaximumSize(500, 300)
 
         formulario = QGridLayout()
              
-        userLabel = QLabel("Usuario: ")
         self.user = QLineEdit()
+        self.user.setPlaceholderText("Usuario")
         self.user.setFixedWidth(125)
+        self.user.setFixedHeight(30)
         
-        passwordLabel = QLabel("Contrasenia: ")
         self.password = QLineEdit()    
+        self.password.setPlaceholderText("Contraseña")
         self.password.setEchoMode(QLineEdit.Password)    
         self.password.setFixedWidth(125)
+        self.password.setFixedHeight(30)
         
-        button = QPushButton("Aceptar")
-        button.setFixedWidth(75)
+        self.playButton = QPushButton()
+        self.playButton.clicked.connect(self.TOGGLE_PASSWORD)
+        self.playButton.setFixedSize(30, 30)
+        self.playButton.setIconSize(QSize(20, 20))
+        self.playButton.setIcon(QtGui.QIcon(absPath("imagenes/hide.png")))
+        
+        button = QPushButton("Iniciar sesion")
+        button.setFixedWidth(85)
         button.clicked.connect(self.LOGEARSE)
         
-        formulario.addWidget(userLabel, 0, 0, Qt.AlignRight)
-        formulario.addWidget(self.user, 0, 1, Qt.AlignLeft)
-        formulario.addWidget(passwordLabel, 1, 0, Qt.AlignRight)
-        formulario.addWidget(self.password, 1, 1, Qt.AlignLeft)
-        formulario.addWidget(button, 2, 0, 1, 2, Qt.AlignHCenter)
+        formulario.addWidget(self.user, 0, 1, Qt.AlignHCenter)
+        formulario.addWidget(self.password, 1, 1, Qt.AlignHCenter)
+        formulario.addWidget(self.playButton, 1, 2, Qt.AlignLeft)
+        formulario.addWidget(button, 2, 0, 1, 3, Qt.AlignHCenter)
         
         widget = QWidget()
         widget.setLayout(formulario)
@@ -45,6 +55,15 @@ class MainWindow(QMainWindow):
 
         self.show()
 
+    def TOGGLE_PASSWORD(self):
+        if self.passwordVisibility:
+            self.password.setEchoMode(QLineEdit.Password)
+            self.playButton.setIcon(QtGui.QIcon(absPath("imagenes/hide.png")))
+            self.passwordVisibility = False
+        else:
+            self.password.setEchoMode(QLineEdit.Normal)
+            self.playButton.setIcon(QtGui.QIcon(absPath("imagenes/show.png")))
+            self.passwordVisibility = True
 
     def LOGEARSE(self):       
         isValid, user = self.cl.VALIDAR(self.user.text(), self.password.text())

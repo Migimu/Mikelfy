@@ -73,6 +73,10 @@ class Menu(QWidget):
     def ON_CHILD_CLOSED(self):
         self.show()
 
+    @Slot()
+    def closeEvent(self, event):
+        self.closed.emit()
+        super().closeEvent(event)
 # Creamos la aplicación, la ventana e iniciamos el bucle
 
 

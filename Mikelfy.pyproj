@@ -71,6 +71,7 @@
     <Content Include="imagenes\borrar.png" />
     <Content Include="imagenes\buscar.png" />
     <Content Include="imagenes\editar.png" />
+    <Content Include="imagenes\hide.png" />
     <Content Include="imagenes\limpiarFiltro.png" />
     <Content Include="imagenes\filtrar.png" />
     <Content Include="imagenes\playlist.png" />
@@ -80,6 +81,7 @@
     <Content Include="imagenes\cancion.png" />
     <Content Include="imagenes\play.png" />
     <Content Include="imagenes\back.png" />
+    <Content Include="imagenes\view.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
