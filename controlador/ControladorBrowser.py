@@ -12,8 +12,8 @@ class ControladorBrowser:
         self.songs = Songs()
         self.genres = Genres()
         
-    # def  SEARCH(self, word, isArtist = False, isAlbum = False, isSong = False, genre = None, startYear = None, endyear = None):
-    #     return self.GET_ALL_COINCIDENCES(word)
+    def GET_ALL_GENRES(self):
+        return self.genres.GET_GENRES()
       
     def GET_ALL_COINCIDENCES(self, word, showArtists = True, showAlbums = True, showSongs = True, genre = None, startYear = None, endyear = None):
         result = []
@@ -35,10 +35,8 @@ class ControladorBrowser:
        result.extend(self.artists.GET_ARTISTS_BY_ALBUM(idAlbum))
        result.extend(self.songs.GET_SONGS_BY_ALBUM(idAlbum))
         
-       return result
-        
-    def GET_ALL_GENRES(self):
-        return self.genres.GET_GENRES()
+       return result       
+    
 
         
 

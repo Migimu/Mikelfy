@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: LicenseRef-Qt-Commercial OR BSD-3-Clause
 
 
-#https://doc.qt.io/qtforpython-6/examples/example_multimedia_player.html esta copiado de aqui pero esta modificado para que me valaga a mi
+#https://doc.qt.io/qtforpython-6/examples/example_multimedia_player.html esta copiado de aqui pero esta modificado para que me funcione a mi
 
 """PySide6 Multimedia player example"""
 

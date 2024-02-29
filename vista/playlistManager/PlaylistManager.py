@@ -1,8 +1,9 @@
 ﻿from PySide6 import QtGui
 from PySide6.QtCore import QSize, Qt, Signal, Slot
-from PySide6.QtWidgets import QHBoxLayout, QLabel, QMessageBox, QPushButton, QScrollArea, QVBoxLayout, QWidget
+from PySide6.QtWidgets import QGridLayout, QHBoxLayout, QLabel, QMessageBox, QPushButton, QScrollArea, QVBoxLayout, QWidget
 
 from controlador.ControladorPlaylist import ControladorPlaylist
+from vista.playlistManager.AddSongs import AddSongs
 from vista.util.Dialogs import OPEN_ACCEPT_CANCEL_DIALOG, OPEN_INFORMATION_DIALOG, OPEN_TEXT_INPUT_DIALOG
 from vista.util.MediaPlayer import MediaPlayer
 from vista.util.Utils import absPath
@@ -69,18 +70,8 @@ class PlaylistManager(QWidget):
             self.vista.setFixedWidth(265)
             self.vistaList.setFixedHeight(300)
             vistaLayout = QVBoxLayout()
-            vistaLayout.setContentsMargins(0, 0, 0, 0)
-
-            # vistaLayout.setSpacing(0)
-            nameLabel = QLabel(self.selectedPlaylist.name)
-            nameLabel.setFixedHeight(100)
-            nameLabel.setAlignment(Qt.AlignCenter)
-            nameLabel.setStyleSheet("""QLabel {
-                                        border: 1px solid black;
-                                        font-size: 32px;
-                                    }""")
-            # vistaLayout.addWidget(self.BUILD_ADD_SONG_CARD())
-            vistaLayout.addWidget(nameLabel) 
+            vistaLayout.setContentsMargins(0, 0, 0, 0)                      
+            vistaLayout.addWidget(self.BUILD_TITLE()) 
             for song in self.cl.GET_SONGS_BY_ID(self.selectedPlaylist.songs):
                 vistaLayout.addWidget(self.BUILD_SONG_CARD(song))          
             self.vista.setLayout(vistaLayout)
@@ -90,6 +81,45 @@ class PlaylistManager(QWidget):
         
         return managerLayout
     
+    def BUILD_TITLE(self):
+        layout = QGridLayout()
+        widget = QWidget()
+        
+        nameLabel = QLabel(self.selectedPlaylist.name)
+        nameLabel.setFixedHeight(120)
+        nameLabel.setAlignment(Qt.AlignCenter)
+        nameLabel.setStyleSheet("""QLabel {
+                                    border: 1px solid black;
+                                    font-size: 32px;
+                                }""")      
+        layout.addWidget(nameLabel, 0, 0, 2, 2)
+        
+        buttonWidget = QWidget()
+        buttonWidget.setFixedWidth(80)
+        buttonLayout = QHBoxLayout()
+        editButton = QPushButton()
+        editButton.setFixedSize(30, 30)
+        editButton.setIconSize(QSize(20, 20))
+        editButton.setIcon(QtGui.QIcon(absPath("imagenes/editar.png")))
+        editButton.setFlat(True)
+        editButton.clicked.connect(lambda: self.EDITAR_PLAYLIST(self.selectedPlaylist))
+        buttonLayout.addWidget(editButton)
+        
+        playButton = QPushButton()
+        playButton.setFixedSize(30, 30)
+        playButton.setIconSize(QSize(20, 20))
+        playButton.setIcon(QtGui.QIcon(absPath("imagenes/play.png")))
+        playButton.clicked.connect(lambda: self.REPRODUCCIR_PLAYLIST(self.selectedPlaylist.songs))
+        playButton.setFlat(True)
+        buttonLayout.addWidget(playButton)
+        
+        buttonWidget.setLayout(buttonLayout)
+        layout.addWidget(buttonWidget, 1, 1)
+        widget.setLayout(layout)
+        
+        return widget
+
+
     def BUILD_PLAYLIST_CARD(self, playlist):
        card = QWidget()
        cardLayout = QHBoxLayout()
@@ -105,7 +135,7 @@ class PlaylistManager(QWidget):
        editButton.setIconSize(QSize(20, 20))
        editButton.setIcon(QtGui.QIcon(absPath("imagenes/editar.png")))
        editButton.setFlat(True)
-       editButton.clicked.connect(lambda: self.EDITAR_PLAYLIST(playlist))
+       editButton.clicked.connect(lambda: self.SELECCIONAR_PLAYLIST(playlist))
        cardLayout.addWidget(editButton, 1)
        deleteButton = QPushButton()
        deleteButton.setFixedSize(50, 50)
@@ -193,9 +223,17 @@ class PlaylistManager(QWidget):
             self.REFRESCAR_PANTALLA()
             
             
-    def EDITAR_PLAYLIST(self, playlist):
+    def SELECCIONAR_PLAYLIST(self, playlist):
        self.selectedPlaylist = playlist
        self.REFRESCAR_PANTALLA()
+       
+    def EDITAR_PLAYLIST(self, playlist):
+       self.menu = AddSongs(playlist)          
+       self.menu.closed.connect(self.ON_CHILD_CLOSED)
+       self.menu.show()
+   
+    def REPRODUCCIR_PLAYLIST(self, songsIds):
+       pass
             
     def REFRESCAR_PANTALLA(self):
         self.BUILD_MAIN_LAYOUT()
@@ -215,6 +253,10 @@ class PlaylistManager(QWidget):
     def closeEvent(self, event):
         self.closed.emit()
         super().closeEvent(event)
+        
+    @Slot()
+    def ON_CHILD_CLOSED(self):
+        self.REFRESCAR_PANTALLA()
 
 
 

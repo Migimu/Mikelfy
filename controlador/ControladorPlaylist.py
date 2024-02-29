@@ -29,7 +29,7 @@ class ControladorPlaylist:
     def DELETE_SONG_FROM_PLAYLIST(self, playlistId, songId):
         self.playlists.DELETE_SONG_FROM_PLAYLIST(playlistId, songId)
     
-    def UPDATE_PLAYLISTS(self, playlistId, name):
-        self.playlists.UPDATE_PLAYLIST(playlistId, name)
+    def UPDATE_PLAYLISTS(self, playlistId, name, songsIds):
+        self.playlists.UPDATE_PLAYLIST(playlistId, name, songsIds)
 
 

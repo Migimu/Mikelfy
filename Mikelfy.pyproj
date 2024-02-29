@@ -28,7 +28,7 @@
     <Compile Include="controlador\clases\Playlist.py" />
     <Compile Include="controlador\clases\Song.py" />
     <Compile Include="controlador\clases\User.py" />
-    <Compile Include="controlador\Conn.py" />
+    <Compile Include="modelo\Conn.py" />
     <Compile Include="controlador\ControladorLogin.py" />
     <Compile Include="controlador\ControladorBrowser.py" />
     <Compile Include="controlador\ControladorPlaylist.py" />
@@ -41,6 +41,7 @@
     <Compile Include="Main.py" />
     <Compile Include="modelo\mockUsers.py" />
     <Compile Include="vista\browser\Browser.py" />
+    <Compile Include="vista\playlistManager\AddSongs.py" />
     <Compile Include="vista\util\Dialogs.py" />
     <Compile Include="vista\browser\Filter.py" />
     <Compile Include="vista\login\Login.py" />
