@@ -37,4 +37,17 @@ class Songs:
                 songs.append(song)
         return songs
 
+    def GET_SONGS_BY_ARTIST(self, artistId):
+        songs = []
+        for song in self.__songs:
+            if artistId in song.artists:
+                songs.append(song)
+        return songs
+    
+    def GET_SONGS_BY_ALBUM(self, albumId):
+        songs = []
+        for song in self.__songs:
+            if albumId in song.albums:
+                songs.append(song)
+        return songs
 

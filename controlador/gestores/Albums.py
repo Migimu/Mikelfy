@@ -37,20 +37,13 @@ class Albums:
                 albums.append(album)
         return albums
 
-    # def GET_TOP_ALBUMS(self):
-    #     self.__albums.sort(key=lambda album: album.popularity)
-    #     return self.__albums
-
-    # def GET_TOP_ALBUMS_BY_COUNTRY(self):
-    #     return ""
-
-    # def GET_ALBUMS_BY_ARTIST(self, artistId):
-    #     artistAlbums = []
-    #     for album in self.__albums:
-    #         if album.GET_ARTIST().id == artistId:
-    #             artistAlbums.append(album)
+    def GET_ALBUMS_BY_ARTIST(self, artistId):
+        albums = []
+        for album in self.__albums:
+            if artistId in album.artists:
+                albums.append(album)
         
-    #     return artistAlbums
+        return albums
 
 
 

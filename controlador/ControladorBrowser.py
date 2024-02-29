@@ -23,39 +23,20 @@ class ControladorBrowser:
         
         return result
         
-    # def GET_ALL_COINCIDENCES_BY_GENRE(self, word, genre):       
-    #    pass
+    def GET_ALL_COINCIDENCES_BY_ARTISTS(self, idArtist):       
+       result = []
+       result.extend(self.albums.GET_ALBUMS_BY_ARTIST(idArtist))
+       result.extend(self.songs.GET_SONGS_BY_ARTIST(idArtist))
         
-    # def GET_ALL_COINCIDENCES_BY_YEAR(self, word, year):       
-    #     pass
+       return result
         
-    def GET_ALL_ARTISTS(self, genre = None):       
-        return self.artists.GET_ARTISTS_BY_FILTER("", genre)
+    def GET_ALL_COINCIDENCES_BY_ALBUM(self, idAlbum):       
+       result = []
+       result.extend(self.artists.GET_ARTISTS_BY_ALBUM(idAlbum))
+       result.extend(self.songs.GET_SONGS_BY_ALBUM(idAlbum))
         
-    # def GET_ALL_ARTISTS_BY_GENRE(self, username, password):       
-    #     pass
+       return result
         
-    # def GET_ALL_ARTISTS_BY_YEAR(self, username):       
-    #     pass
-        
-    def GET_ALL_ALBUMS(self, genre = None, startYear = None, endyear = None):       
-        self.albums.GET_ALBUMS_BY_FILTER("", startYear, endyear, genre)
-        
-    # def GET_ALL_ALBUMS_BY_GENRE(self, username, password):       
-    #     pass
-        
-    # def GET_ALL_ALBUMS_BY_YEAR(self, username):       
-    #     pass
-        
-    def GET_ALL_SONGS(self, genre = None, startYear = None, endyear = None):       
-        self.songs.GET_SONGS_BY_FILTER("", startYear, endyear, genre)
-        
-    # def GET_ALL_SONGS_BY_GENRE(self, username, password):       
-    #     pass
-        
-    # def GET_ALL_SONGS_BY_YEAR(self, username):       
-    #     pass
-    
     def GET_ALL_GENRES(self):
         return self.genres.GET_GENRES()
 

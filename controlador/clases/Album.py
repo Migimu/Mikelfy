@@ -8,7 +8,7 @@ class Album:
         self.__isExplicit = isExplicit
         self.__genre = genreId
         self.__songs = []
-        self.__albums = []
+        self.__artists = []
         
     
     @property
@@ -64,12 +64,12 @@ class Album:
         self.__songs = songs
         
     @property
-    def albums(self):
-        return self.__albums
+    def artists(self):
+        return self.__artists
     
-    @albums.setter
-    def albums(self, albums):
-        self.__albums = albums
+    @artists.setter
+    def artists(self, artists):
+        self.__artists = artists
         
     
     

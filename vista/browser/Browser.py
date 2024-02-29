@@ -60,6 +60,17 @@ class Browser(QWidget):
        endYear = self.filter.yearEndInput.value()
        genreId = self.filter.genreCombobox.currentData()
        searchResults = self.cl.GET_ALL_COINCIDENCES(inputWord if not word else word, showArtists, showAlbums, showSongs, genreId, startYear, endYear)
+       self.BUILD_BROWSER(searchResults)
+       
+    def BUSCAR_POR_ARTISTA(self, artistId):     
+       searchResults = self.cl.GET_ALL_COINCIDENCES_BY_ARTISTS(artistId)
+       self.BUILD_BROWSER(searchResults)
+       
+    def BUSCAR_POR_ALBUM(self, albumId):     
+       searchResults = self.cl.GET_ALL_COINCIDENCES_BY_ALBUM(albumId)
+       self.BUILD_BROWSER(searchResults)
+       
+    def BUILD_BROWSER(self, searchResults):
        if len(searchResults) > 0:
             results = self.BUILD_RESULTS(searchResults)
             self.scroll.setAlignment(Qt.AlignHCenter)
@@ -107,7 +118,7 @@ class Browser(QWidget):
        artistNameButton.setStyleSheet("text-align:left;")
        artistNameButton.setFixedWidth(520)
        artistNameButton.setFixedHeight(50)
-       artistNameButton.clicked.connect(lambda: self.BUSCAR(item.name))
+       artistNameButton.clicked.connect(lambda: self.BUSCAR_POR_ARTISTA(item.id))
        artistNameButton.setFlat(True)
        cardLayout.addWidget(artistNameButton, 9)
        card.setLayout(cardLayout)
@@ -129,7 +140,7 @@ class Browser(QWidget):
        albumNameButton.setStyleSheet("text-align:left;")
        albumNameButton.setFixedWidth(520)
        albumNameButton.setFixedHeight(50)
-       albumNameButton.clicked.connect(lambda: self.BUSCAR(item.name))
+       albumNameButton.clicked.connect(lambda: self.BUSCAR_POR_ALBUM(item.id))
        albumNameButton.setFlat(True)
        cardLayout.addWidget(albumNameButton, 9)
        card.setLayout(cardLayout)

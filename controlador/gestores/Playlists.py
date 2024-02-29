@@ -69,6 +69,17 @@ class Playlists:
                 self.__playlists.pop(cont)
             cont += 1
         listaDeReproduccion = self.__playlists
+        
+    def DELETE_SONG_FROM_PLAYLIST(self,playlistId: int, songId: int):
+        encontrado = False
+        cont = 0
+        while not encontrado and cont < len(self.__playlists):
+            playlist: Playlist = self.__playlists[cont]
+            if playlist.id == playlistId:
+                encontrado = True
+                self.__playlists[cont].REMOVE_SONG(songId)
+            cont += 1
+        listaDeReproduccion = self.__playlists
 
     def GET_LAST_ID(self):
         id = 0

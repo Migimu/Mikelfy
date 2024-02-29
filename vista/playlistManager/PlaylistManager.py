@@ -66,12 +66,12 @@ class PlaylistManager(QWidget):
         else:
             self.vistaList = QScrollArea()
             self.vista = QWidget()
-            self.vista.setFixedSize(260, 300)
-            self.vistaList.setAlignment(Qt.AlignCenter)
+            self.vista.setFixedWidth(265)
+            self.vistaList.setFixedHeight(300)
             vistaLayout = QVBoxLayout()
             vistaLayout.setContentsMargins(0, 0, 0, 0)
 
-            vistaLayout.setSpacing(0)
+            # vistaLayout.setSpacing(0)
             nameLabel = QLabel(self.selectedPlaylist.name)
             nameLabel.setFixedHeight(100)
             nameLabel.setAlignment(Qt.AlignCenter)
@@ -79,10 +79,10 @@ class PlaylistManager(QWidget):
                                         border: 1px solid black;
                                         font-size: 32px;
                                     }""")
+            # vistaLayout.addWidget(self.BUILD_ADD_SONG_CARD())
             vistaLayout.addWidget(nameLabel) 
             for song in self.cl.GET_SONGS_BY_ID(self.selectedPlaylist.songs):
-                vistaLayout.addWidget(self.BUILD_SONG_CARD(song))
-            vistaLayout.addWidget(self.BUILD_ADD_SONG_CARD())
+                vistaLayout.addWidget(self.BUILD_SONG_CARD(song))          
             self.vista.setLayout(vistaLayout)
             self.vistaList.setWidget(self.vista)
         
@@ -168,9 +168,10 @@ class PlaylistManager(QWidget):
        cardLayout.addWidget(songButton, 1)
        cardLayout.addWidget(QLabel(item.name), 8)
        playButton = QPushButton()
+       playButton.clicked.connect(lambda: self.QUITAR_CANCION_PLAYLIST(item.id, self.selectedPlaylist.id))
        playButton.setFixedSize(50, 50)
        playButton.setIconSize(QSize(30, 30))
-       playButton.setIcon(QtGui.QIcon(absPath("imagenes/play.png")))
+       playButton.setIcon(QtGui.QIcon(absPath("imagenes/borrar.png")))
        playButton.setFlat(True)
        cardLayout.addWidget(playButton, 1)
        card.setLayout(cardLayout)
@@ -199,6 +200,13 @@ class PlaylistManager(QWidget):
     def REFRESCAR_PANTALLA(self):
         self.BUILD_MAIN_LAYOUT()
         self.setLayout(self.mainLayout)    
+        
+    def QUITAR_CANCION_PLAYLIST(self, songId, playlistId):
+        respuesta = OPEN_ACCEPT_CANCEL_DIALOG(self, "Eliminar cancion", "¿Seguro que quieres eliminar cancion de la lista de reproduccion?")
+        if respuesta == QMessageBox.Ok:
+            self.cl.DELETE_SONG_FROM_PLAYLIST(playlistId, songId)            
+            OPEN_INFORMATION_DIALOG("Eliminada correctamente", "La cancion ha sido eliminada correctamente")
+            self.REFRESCAR_PANTALLA()
     
     def VOLVER(self):
        self.close() 

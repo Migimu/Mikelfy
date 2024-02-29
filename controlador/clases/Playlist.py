@@ -44,10 +44,10 @@ class Playlist:
         self.__songs = songs
         
     def ADD_SONG(self, songId: int):
-        self.__favouriteSongs.append(songId)
+        self.__songs.append(songId)
 
     def REMOVE_SONG(self, songId: int):
-        self.__favouriteSongs.remove(songId)
+        self.__songs.remove(songId)
 
 
 
