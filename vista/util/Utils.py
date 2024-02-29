@@ -10,7 +10,7 @@ def FILTER(item, name: str, startYear: int, endYear: int, genre: int):
     if ((name == "" or itemName == name) and 
         (startYear == None or item.releaseYear >= startYear) and 
         (endYear == None or item.releaseYear <= endYear) and 
-        (genre == -1 or genre in item.genres)):
+        (genre == None or genre == item.genre)):
         return True
     return False
 
@@ -18,7 +18,7 @@ def FILTER_ARTIST(item, name: str, genre: int):
     name = name.replace(" ", "").lower()
     itemName = item.name.replace(" ", "").lower()
     if ((name == "" or itemName == name) and
-        (genre == -1 or genre in item.genres)):
+        (genre == None or genre == item.genre)):
         return True
     return False
 

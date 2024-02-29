@@ -76,7 +76,7 @@ class PlaylistManager(QWidget):
             nameLabel.setFixedHeight(100)
             nameLabel.setAlignment(Qt.AlignCenter)
             nameLabel.setStyleSheet("""QLabel {
-                                        background-color: green;
+                                        border: 1px solid black;
                                         font-size: 32px;
                                     }""")
             vistaLayout.addWidget(nameLabel) 

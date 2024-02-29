@@ -1,15 +1,15 @@
 
 class Artist:
     
-    def __init__(self, id: int, name: str, country: str, followers: int, popularity: int):
+    def __init__(self, id: int, name: str, country: str, followers: int, popularity: int, genreId: int):
         self.__id = id
         self.__name = name
         self.__country = country
         self.__followers = followers
         self.__popularity = popularity
+        self.__genre = genreId
         self.__songs = []
         self.__albums = []
-        self.__genres = []
     
     @property
     def id(self):
@@ -45,7 +45,15 @@ class Artist:
     
     @popularity.setter
     def popularity(self, popularity: int):
-        self.__popularity = popularity        
+        self.__popularity = popularity     
+        
+    @property
+    def genre(self):
+        return self.__genre
+        
+    @genre.setter
+    def genre(self, genre):
+        self.__genre = genre
 
     @property
     def songs(self):
@@ -61,15 +69,7 @@ class Artist:
     
     @albums.setter
     def albums(self, albums):
-        self.__albums = albums
-        
-    @property
-    def genres(self):
-        return self.__genres
-    
-    @genres.setter
-    def genres(self, genres):
-        self.__genres = genres
+        self.__albums = albums        
 
 
 

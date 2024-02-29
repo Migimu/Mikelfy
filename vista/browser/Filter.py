@@ -34,7 +34,7 @@ class Filter(QWidget):
         layout.addWidget(self.yearEndInput, 1, 1)
         self.genreCombobox = QComboBox()        
         for genre in genres:
-            self.genreCombobox.addItem(genre.name)
+            self.genreCombobox.addItem(genre.name, genre.id)
         self.genreCombobox.setCurrentIndex(-1)
         layout.addWidget(self.genreCombobox, 1, 2)   
         

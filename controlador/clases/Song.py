@@ -1,6 +1,6 @@
 class Song:
     
-    def __init__(self, id: int, name: str, duration: int, popularity: int, releaseYear: int, isExplicit: bool, reproductions: int):
+    def __init__(self, id: int, name: str, duration: int, popularity: int, releaseYear: int, isExplicit: bool, reproductions: int, genreId: int):
         self.__id = id
         self.__name = name
         self.__duration = duration
@@ -8,8 +8,8 @@ class Song:
         self.__releaseYear = releaseYear
         self.__isExplicit = isExplicit
         self.__reproductions = reproductions
+        self.__genre = genreId
         self.__albums = []
-        self.__genres = []
         self.__artists = []
     
     @property
@@ -65,20 +65,20 @@ class Song:
         self.__reproductions = reproductions
         
     @property
+    def genre(self):
+        return self.__genre
+        
+    @genre.setter
+    def genre(self, genre):
+        self.__genre = genre
+        
+    @property
     def albums(self):
         return self.__albums
     
     @albums.setter
     def albums(self, albums):
-        self.__albums = albums
-        
-    @property
-    def genres(self):
-        return self.__genres
-    
-    @genres.setter
-    def genres(self, genres):
-        self.__genres = genres
+        self.__albums = albums       
 
     @property
     def artists(self):

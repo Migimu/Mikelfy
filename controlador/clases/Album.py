@@ -1,14 +1,15 @@
 class Album:
     
-    def __init__(self, id: int, name: str, popularity: int, releaseYear: int, isExplicit: bool, artistId: int):
+    def __init__(self, id: int, name: str, popularity: int, releaseYear: int, isExplicit: bool, genreId: int):
         self.__id = id
         self.__name = name
         self.__popularity = popularity
         self.__releaseYear = releaseYear
         self.__isExplicit = isExplicit
+        self.__genre = genreId
         self.__songs = []
         self.__albums = []
-        self.__genres = []
+        
     
     @property
     def id(self):
@@ -45,6 +46,14 @@ class Album:
     @isExplicit.setter
     def isExplicit(self):
         self.__isExplicit = not self.__isExplicit
+        
+    @property
+    def genre(self):
+        return self.__genre
+        
+    @genre.setter
+    def genre(self, genre):
+        self.__genre = genre
     
     @property
     def songs(self):
@@ -62,13 +71,9 @@ class Album:
     def albums(self, albums):
         self.__albums = albums
         
-    @property
-    def genres(self):
-        return self.__genres
     
-    @genres.setter
-    def genres(self, genres):
-        self.__genres = genres
+    
+    
 
 
 

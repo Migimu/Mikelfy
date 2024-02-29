@@ -58,7 +58,7 @@ class Browser(QWidget):
        showSongs = self.filter.songsCheckbox.isChecked()
        startYear = self.filter.yearStartInput.value()
        endYear = self.filter.yearEndInput.value()
-       genreId = self.filter.genreCombobox.currentIndex()
+       genreId = self.filter.genreCombobox.currentData()
        searchResults = self.cl.GET_ALL_COINCIDENCES(inputWord if not word else word, showArtists, showAlbums, showSongs, genreId, startYear, endYear)
        if len(searchResults) > 0:
             results = self.BUILD_RESULTS(searchResults)
