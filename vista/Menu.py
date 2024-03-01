@@ -1,4 +1,4 @@
-﻿from PySide6 import QtGui
+﻿from PySide6.QtGui import QIcon
 from PySide6.QtCore import QSize, Signal, Slot
 from PySide6.QtWidgets import QGridLayout, QMessageBox, QPushButton, QWidget
 from vista.browser.Browser import Browser
@@ -22,7 +22,7 @@ class Menu(QWidget):
         formulario = QGridLayout()            
         
         buttonBrowser = QPushButton()
-        buttonBrowser.setIcon(QtGui.QIcon(absPath("imagenes/buscar.png")))
+        buttonBrowser.setIcon(QIcon(absPath("buscar.png")))
         buttonBrowser.setIconSize(QSize(35, 35))
         buttonBrowser.setToolTip("Buscar")
         buttonBrowser.setFixedWidth(75)
@@ -30,7 +30,7 @@ class Menu(QWidget):
         buttonBrowser.clicked.connect(self.OPEN_BROWSER_WINDOW)
         
         buttonPlaylists = QPushButton()
-        buttonPlaylists.setIcon(QtGui.QIcon(absPath("imagenes/listaDeReproduccion.png")))
+        buttonPlaylists.setIcon(QIcon(absPath("listaDeReproduccion.png")))
         buttonPlaylists.setIconSize(QSize(35, 35))
         buttonPlaylists.setToolTip("Mis Playlists")
         buttonPlaylists.setFixedWidth(75)
@@ -38,7 +38,7 @@ class Menu(QWidget):
         buttonPlaylists.clicked.connect(self.OPEN_PLAYLISTS_WINDOW)
         
         buttonLogout = QPushButton()
-        buttonLogout.setIcon(QtGui.QIcon(absPath("imagenes/cerrarSesion.png")))
+        buttonLogout.setIcon(QIcon(absPath("cerrarSesion.png")))
         buttonLogout.setIconSize(QSize(35, 35))
         buttonLogout.setToolTip("Salir")
         buttonLogout.setFixedWidth(75)

@@ -54,11 +54,13 @@
     <Compile Include="vista\util\Utils.py" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="assets\database\" />
     <Folder Include="controlador\gestores\" />
     <Folder Include="controlador\clases\" />
     <Folder Include="modelo\" />
     <Folder Include="controlador\" />
-    <Folder Include="imagenes\" />
+    <Folder Include="assets\imagenes\" />
+    <Folder Include="assets\" />
     <Folder Include="vista\" />
     <Folder Include="vista\login\" />
     <Folder Include="vista\browser\" />
@@ -66,22 +68,23 @@
     <Folder Include="vista\util\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="imagenes\album.png" />
-    <Content Include="imagenes\artista.png" />
-    <Content Include="imagenes\borrar.png" />
-    <Content Include="imagenes\buscar.png" />
-    <Content Include="imagenes\editar.png" />
-    <Content Include="imagenes\hide.png" />
-    <Content Include="imagenes\limpiarFiltro.png" />
-    <Content Include="imagenes\filtrar.png" />
-    <Content Include="imagenes\playlist.png" />
-    <Content Include="imagenes\addPlaylist.png" />
-    <Content Include="imagenes\listaDeReproduccion.png" />
-    <Content Include="imagenes\cerrarSesion.png" />
-    <Content Include="imagenes\cancion.png" />
-    <Content Include="imagenes\play.png" />
-    <Content Include="imagenes\back.png" />
-    <Content Include="imagenes\view.png" />
+    <Content Include="assets\database\SQLQueryMikelfy.sql" />
+    <Content Include="assets\imagenes\album.png" />
+    <Content Include="assets\imagenes\artista.png" />
+    <Content Include="assets\imagenes\borrar.png" />
+    <Content Include="assets\imagenes\buscar.png" />
+    <Content Include="assets\imagenes\editar.png" />
+    <Content Include="assets\imagenes\hide.png" />
+    <Content Include="assets\imagenes\limpiarFiltro.png" />
+    <Content Include="assets\imagenes\filtrar.png" />
+    <Content Include="assets\imagenes\playlist.png" />
+    <Content Include="assets\imagenes\addPlaylist.png" />
+    <Content Include="assets\imagenes\listaDeReproduccion.png" />
+    <Content Include="assets\imagenes\cerrarSesion.png" />
+    <Content Include="assets\imagenes\cancion.png" />
+    <Content Include="assets\imagenes\play.png" />
+    <Content Include="assets\imagenes\back.png" />
+    <Content Include="assets\imagenes\view.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in

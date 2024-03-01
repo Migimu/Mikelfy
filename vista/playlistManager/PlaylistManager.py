@@ -1,4 +1,4 @@
-﻿from PySide6 import QtGui
+﻿from PySide6.QtGui import QIcon
 from PySide6.QtCore import QSize, Qt, Signal, Slot
 from PySide6.QtWidgets import QGridLayout, QHBoxLayout, QLabel, QMessageBox, QPushButton, QScrollArea, QVBoxLayout, QWidget
 
@@ -31,7 +31,7 @@ class PlaylistManager(QWidget):
 
         backButton = QPushButton()
         backButton.clicked.connect(self.VOLVER)
-        backButton.setIcon(QtGui.QIcon(absPath("imagenes/back.png")))
+        backButton.setIcon(QIcon(absPath("back.png")))
         backButton.setFixedSize(QSize(30,30))
         self.mainLayout.addWidget(backButton, 1, Qt.AlignLeft)
         
@@ -100,7 +100,7 @@ class PlaylistManager(QWidget):
         editButton = QPushButton()
         editButton.setFixedSize(30, 30)
         editButton.setIconSize(QSize(20, 20))
-        editButton.setIcon(QtGui.QIcon(absPath("imagenes/editar.png")))
+        editButton.setIcon(QIcon(absPath("editar.png")))
         editButton.setFlat(True)
         editButton.clicked.connect(lambda: self.EDITAR_PLAYLIST(self.selectedPlaylist))
         buttonLayout.addWidget(editButton)
@@ -108,7 +108,7 @@ class PlaylistManager(QWidget):
         playButton = QPushButton()
         playButton.setFixedSize(30, 30)
         playButton.setIconSize(QSize(20, 20))
-        playButton.setIcon(QtGui.QIcon(absPath("imagenes/play.png")))
+        playButton.setIcon(QIcon(absPath("play.png")))
         playButton.clicked.connect(lambda: self.REPRODUCCIR_PLAYLIST(self.selectedPlaylist.songs))
         playButton.setFlat(True)
         buttonLayout.addWidget(playButton)
@@ -124,7 +124,7 @@ class PlaylistManager(QWidget):
        card = QWidget()
        cardLayout = QHBoxLayout()
        playlistButton = QPushButton()
-       playlistButton.setIcon(QtGui.QIcon(absPath("imagenes/playlist.png")))
+       playlistButton.setIcon(QIcon(absPath("playlist.png")))
        playlistButton.setIconSize(QSize(30, 30))
        playlistButton.setFlat(True)
        playlistButton.setEnabled(False)
@@ -133,14 +133,14 @@ class PlaylistManager(QWidget):
        editButton = QPushButton()
        editButton.setFixedSize(50, 50)
        editButton.setIconSize(QSize(20, 20))
-       editButton.setIcon(QtGui.QIcon(absPath("imagenes/editar.png")))
+       editButton.setIcon(QIcon(absPath("editar.png")))
        editButton.setFlat(True)
        editButton.clicked.connect(lambda: self.SELECCIONAR_PLAYLIST(playlist))
        cardLayout.addWidget(editButton, 1)
        deleteButton = QPushButton()
        deleteButton.setFixedSize(50, 50)
        deleteButton.setIconSize(QSize(20, 20))
-       deleteButton.setIcon(QtGui.QIcon(absPath("imagenes/borrar.png")))
+       deleteButton.setIcon(QIcon(absPath("borrar.png")))
        deleteButton.setFlat(True)
        deleteButton.clicked.connect(lambda: self.ELIMINAR_PLAYLIST(playlist.id))
        cardLayout.addWidget(deleteButton, 1)
@@ -152,7 +152,7 @@ class PlaylistManager(QWidget):
        card = QWidget()
        cardLayout = QHBoxLayout()
        iconButton = QPushButton()
-       iconButton.setIcon(QtGui.QIcon(absPath("imagenes/addPlaylist.png")))
+       iconButton.setIcon(QIcon(absPath("addPlaylist.png")))
        iconButton.setIconSize(QSize(30, 30))
        iconButton.setFlat(True)
        iconButton.setEnabled(False)
@@ -172,7 +172,7 @@ class PlaylistManager(QWidget):
        card.setFixedHeight(50)
        cardLayout = QHBoxLayout()
        iconButton = QPushButton()
-       iconButton.setIcon(QtGui.QIcon(absPath("imagenes/addPlaylist.png")))
+       iconButton.setIcon(QIcon(absPath("addPlaylist.png")))
        iconButton.setIconSize(QSize(30, 30))
        iconButton.setFlat(True)
        iconButton.setEnabled(False)
@@ -191,7 +191,7 @@ class PlaylistManager(QWidget):
        card = QWidget()
        cardLayout = QHBoxLayout()
        songButton = QPushButton()
-       songButton.setIcon(QtGui.QIcon(absPath("imagenes/cancion.png")))
+       songButton.setIcon(QIcon(absPath("cancion.png")))
        songButton.setIconSize(QSize(30, 30))
        songButton.setFlat(True)
        songButton.setEnabled(False)
@@ -201,7 +201,7 @@ class PlaylistManager(QWidget):
        playButton.clicked.connect(lambda: self.QUITAR_CANCION_PLAYLIST(item.id, self.selectedPlaylist.id))
        playButton.setFixedSize(50, 50)
        playButton.setIconSize(QSize(30, 30))
-       playButton.setIcon(QtGui.QIcon(absPath("imagenes/borrar.png")))
+       playButton.setIcon(QIcon(absPath("borrar.png")))
        playButton.setFlat(True)
        cardLayout.addWidget(playButton, 1)
        card.setLayout(cardLayout)
@@ -220,6 +220,7 @@ class PlaylistManager(QWidget):
         if respuesta == QMessageBox.Ok:
             self.cl.DELETE_PLAYLISTS(id)            
             OPEN_INFORMATION_DIALOG("Eliminado correctamente", "La lista de reproduccion ha sido eliminada correctamente")
+            self.selectedPlaylist = None
             self.REFRESCAR_PANTALLA()
             
             

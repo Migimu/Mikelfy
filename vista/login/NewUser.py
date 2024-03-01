@@ -1,6 +1,6 @@
-from PySide6 import QtGui
+from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import QCalendarWidget, QComboBox, QLineEdit, QLabel, QPushButton, QGridLayout, QWidget
-from PySide6.QtCore import QSize, Qt,  Signal, Slot
+from PySide6.QtCore import QDate, QSize, Qt,  Signal, Slot
 
 from controlador.ControladorLogin import ControladorLogin
 from vista.util.Dialogs import OPEN_INFORMATION_DIALOG
@@ -21,27 +21,26 @@ class NewUser(QWidget):
         
         self.name = QLineEdit()
         self.name.setPlaceholderText("Nombre")
-        self.name.setEchoMode(QLineEdit.Password)
         self.name.setFixedWidth(150)
         self.name.setFixedHeight(30)
              
         self.user = QLineEdit()
         self.user.setPlaceholderText("Usuario")
-        self.user.setEchoMode(QLineEdit.Password)
         self.user.setFixedWidth(150)
         self.user.setFixedHeight(30)
         self.user.setText(username)
         
         self.email = QLineEdit()    
         self.email.setPlaceholderText("Email")
-        self.email.setEchoMode(QLineEdit.Password)
         self.email.setFixedWidth(150)
         self.email.setFixedHeight(30)
         
         self.country =  QComboBox()
-        self.country.addItems(['España', 'Francia', 'Portugal', 'Alemania'])
+        self.country.addItems(['', 'España', 'Francia', 'Portugal', 'Alemania'])
         
         self.birthDate = QCalendarWidget()    
+        self.birthDate.setMinimumDate(QDate(1900, 1 , 1))
+        self.birthDate.setMaximumDate(QDate.currentDate())
         self.birthDate.setFixedWidth(150)
         
         self.password = QLineEdit()    
@@ -55,7 +54,7 @@ class NewUser(QWidget):
         self.passwordButton.clicked.connect(self.TOGGLE_PASSWORD)
         self.passwordButton.setFixedSize(30, 30)
         self.passwordButton.setIconSize(QSize(20, 20))
-        self.passwordButton.setIcon(QtGui.QIcon(absPath("imagenes/hide.png")))
+        self.passwordButton.setIcon(QIcon(absPath("hide.png")))
         
         buttonAccept = QPushButton("Aceptar")
         buttonAccept.setFixedWidth(75)
@@ -81,21 +80,24 @@ class NewUser(QWidget):
     def TOGGLE_PASSWORD(self):
         if self.passwordVisibility:
             self.password.setEchoMode(QLineEdit.Password)
-            self.passwordButton.setIcon(QtGui.QIcon(absPath("imagenes/hide.png")))
+            self.passwordButton.setIcon(QIcon(absPath("hide.png")))
             self.passwordVisibility = False
         else:
             self.password.setEchoMode(QLineEdit.Normal)
-            self.passwordButton.setIcon(QtGui.QIcon(absPath("imagenes/show.png")))
+            self.passwordButton.setIcon(QIcon(absPath("show.png")))
             self.passwordVisibility = True
 
     def CREAR(self):
        isValid = self.cl.VALIDATE_USERNAME(self.user.text())
-       if isValid:
-           self.cl.RESGISTRATE(self.user.text(), self.name.text(), self.email.text(), self.country.currentIndex(), self.birthDate.selectedDate(), self.password.text())
-           OPEN_INFORMATION_DIALOG("¡Enhorabuena!", "Tu usuario ha sido creado correctamente")
-           self.close()
+       if (self.user.text() == '' or self.name.text() == ''  or self.email.text() == '' or self.country.currentIndex() == 0 or self.password.text() == ''):    
+           OPEN_INFORMATION_DIALOG("¡Error!", "Faltan campos por rellenar")
        else:
-           OPEN_INFORMATION_DIALOG("¡Error!", "El usuario ya existe en la base de datos")
+           if isValid:
+               self.cl.RESGISTRATE(self.user.text(), self.name.text(), self.email.text(), self.country.currentIndex(), self.birthDate.selectedDate().year(), self.password.text())
+               OPEN_INFORMATION_DIALOG("¡Enhorabuena!", "Tu usuario ha sido creado correctamente")
+               self.close()
+           else:
+               OPEN_INFORMATION_DIALOG("¡Error!", "El usuario ya existe en la base de datos")
            
     @Slot()
     def closeEvent(self, event):

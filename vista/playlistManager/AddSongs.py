@@ -1,4 +1,4 @@
-﻿from PySide6 import QtGui
+﻿from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import QCheckBox, QHBoxLayout, QLabel, QLineEdit, QMessageBox, QPushButton, QScrollArea, QVBoxLayout, QWidget
 from PySide6.QtCore import QSize, Qt,  Signal, Slot
 from controlador.ControladorPlaylist import ControladorPlaylist
@@ -71,7 +71,7 @@ class AddSongs(QWidget):
        card.setFixedHeight(60)
        cardLayout = QHBoxLayout()
        songButton = QPushButton()
-       songButton.setIcon(QtGui.QIcon(absPath("imagenes/cancion.png")))
+       songButton.setIcon(QIcon(absPath("cancion.png")))
        songButton.setIconSize(QSize(30, 30))
        songButton.setFlat(True)
        songButton.setEnabled(False)

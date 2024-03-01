@@ -1,7 +1,7 @@
 from pathlib import Path
 
-def absPath(file):
-    path = str(Path(__file__).parent.parent.parent.absolute() / file)
+def absPath(file, direcoryAts = "assets" , direcoryImg = "imagenes"):
+    path = str(Path(__file__).parent.parent.parent.absolute() / direcoryAts / direcoryImg / file)
     return path
 
 def FILTER(item, name: str, startYear: int, endYear: int, genre: int):    

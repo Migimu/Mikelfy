@@ -1,4 +1,4 @@
-from PySide6 import QtGui
+from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import QCheckBox, QComboBox, QGridLayout, QPushButton, QSpinBox, QWidget
 from PySide6.QtCore import QSize
 
@@ -39,7 +39,7 @@ class Filter(QWidget):
         layout.addWidget(self.genreCombobox, 1, 2)   
         
         self.clearFilters = QPushButton()
-        self.clearFilters.setIcon(QtGui.QIcon(absPath("imagenes/limpiarFiltro.png")))
+        self.clearFilters.setIcon(QIcon(absPath("limpiarFiltro.png")))
         self.clearFilters.setFixedSize(QSize(25,25))
         self.clearFilters.clicked.connect(self.CLEAR_FILTERS)
         layout.addWidget(self.clearFilters, 1, 3)  

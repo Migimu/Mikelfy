@@ -1,4 +1,4 @@
-from PySide6 import QtGui
+from PySide6.QtGui import QIcon
 from vista.Menu import Menu
 from PySide6.QtWidgets import QMainWindow, QLineEdit, QLabel, QPushButton, QGridLayout, QWidget, QMessageBox
 from PySide6.QtCore import QSize, Qt, Slot
@@ -37,7 +37,7 @@ class MainWindow(QMainWindow):
         self.playButton.clicked.connect(self.TOGGLE_PASSWORD)
         self.playButton.setFixedSize(30, 30)
         self.playButton.setIconSize(QSize(20, 20))
-        self.playButton.setIcon(QtGui.QIcon(absPath("imagenes/hide.png")))
+        self.playButton.setIcon(QIcon(absPath("hide.png")))
         
         button = QPushButton("Iniciar sesion")
         button.setFixedWidth(85)
@@ -58,11 +58,11 @@ class MainWindow(QMainWindow):
     def TOGGLE_PASSWORD(self):
         if self.passwordVisibility:
             self.password.setEchoMode(QLineEdit.Password)
-            self.playButton.setIcon(QtGui.QIcon(absPath("imagenes/hide.png")))
+            self.playButton.setIcon(QIcon(absPath("hide.png")))
             self.passwordVisibility = False
         else:
             self.password.setEchoMode(QLineEdit.Normal)
-            self.playButton.setIcon(QtGui.QIcon(absPath("imagenes/show.png")))
+            self.playButton.setIcon(QIcon(absPath("show.png")))
             self.passwordVisibility = True
 
     def LOGEARSE(self):       

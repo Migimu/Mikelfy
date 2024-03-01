@@ -1,4 +1,4 @@
-from PySide6 import QtGui
+from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import QHBoxLayout, QLabel, QPushButton, QScrollArea, QVBoxLayout, QWidget
 from PySide6.QtCore import QSize, Qt,  Signal, Slot
 from controlador.ControladorBrowser import ControladorBrowser
@@ -109,7 +109,7 @@ class Browser(QWidget):
        card.setFixedHeight(60)
        cardLayout = QHBoxLayout()
        iconButton = QPushButton()
-       iconButton.setIcon(QtGui.QIcon(absPath("imagenes/artista.png")))
+       iconButton.setIcon(QIcon(absPath("artista.png")))
        iconButton.setIconSize(QSize(30, 30))
        iconButton.setFlat(True)
        iconButton.setEnabled(False)
@@ -131,7 +131,7 @@ class Browser(QWidget):
        card.setFixedHeight(60)
        cardLayout = QHBoxLayout()
        iconButton = QPushButton()
-       iconButton.setIcon(QtGui.QIcon(absPath("imagenes/album.png")))
+       iconButton.setIcon(QIcon(absPath("album.png")))
        iconButton.setIconSize(QSize(30, 30))
        iconButton.setFlat(True)
        iconButton.setEnabled(False)
@@ -153,7 +153,7 @@ class Browser(QWidget):
        card.setFixedHeight(60)
        cardLayout = QHBoxLayout()
        songButton = QPushButton()
-       songButton.setIcon(QtGui.QIcon(absPath("imagenes/cancion.png")))
+       songButton.setIcon(QIcon(absPath("cancion.png")))
        songButton.setIconSize(QSize(30, 30))
        songButton.setFlat(True)
        songButton.setEnabled(False)
@@ -162,7 +162,7 @@ class Browser(QWidget):
        playButton = QPushButton()
        playButton.setFixedSize(50, 50)
        playButton.setIconSize(QSize(30, 30))
-       playButton.setIcon(QtGui.QIcon(absPath("imagenes/play.png")))
+       playButton.setIcon(QIcon(absPath("play.png")))
        playButton.setFlat(True)
        cardLayout.addWidget(playButton, 1)
        card.setLayout(cardLayout)

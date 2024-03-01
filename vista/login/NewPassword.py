@@ -1,4 +1,4 @@
-﻿from PySide6 import QtGui
+﻿from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import QLineEdit, QLabel, QPushButton, QGridLayout, QWidget
 from PySide6.QtCore import QSize, Qt, Signal, Slot
 
@@ -31,7 +31,7 @@ class NewPassword(QWidget):
         self.passwordButton.clicked.connect(self.TOGGLE_PASSWORD)
         self.passwordButton.setFixedSize(30, 30)
         self.passwordButton.setIconSize(QSize(20, 20))
-        self.passwordButton.setIcon(QtGui.QIcon(absPath("imagenes/hide.png")))
+        self.passwordButton.setIcon(QIcon(absPath("hide.png")))
         
         self.newPassword = QLineEdit()    
         self.newPassword.setPlaceholderText("Repita contraseña")    
@@ -43,7 +43,7 @@ class NewPassword(QWidget):
         self.newPassworButton.clicked.connect(self.TOGGLE_NEW_PASSWORD)
         self.newPassworButton.setFixedSize(30, 30)
         self.newPassworButton.setIconSize(QSize(20, 20))
-        self.newPassworButton.setIcon(QtGui.QIcon(absPath("imagenes/hide.png")))
+        self.newPassworButton.setIcon(QIcon(absPath("hide.png")))
         
         buttonAccept = QPushButton("Aceptar")
         buttonAccept.setFixedWidth(75)
@@ -66,21 +66,21 @@ class NewPassword(QWidget):
     def TOGGLE_PASSWORD(self):
         if self.passwordVisibility:
             self.password.setEchoMode(QLineEdit.Password)
-            self.passwordButton.setIcon(QtGui.QIcon(absPath("imagenes/hide.png")))
+            self.passwordButton.setIcon(QIcon(absPath("hide.png")))
             self.passwordVisibility = False
         else:
             self.password.setEchoMode(QLineEdit.Normal)
-            self.passwordButton.setIcon(QtGui.QIcon(absPath("imagenes/show.png")))
+            self.passwordButton.setIcon(QIcon(absPath("show.png")))
             self.passwordVisibility = True
             
     def TOGGLE_NEW_PASSWORD(self):
         if self.newPasswordVisibility:
             self.newPassword.setEchoMode(QLineEdit.Password)
-            self.newPassworButton.setIcon(QtGui.QIcon(absPath("imagenes/hide.png")))
+            self.newPassworButton.setIcon(QIcon(absPath("hide.png")))
             self.newPasswordVisibility = False
         else:
             self.newPassword.setEchoMode(QLineEdit.Normal)
-            self.newPassworButton.setIcon(QtGui.QIcon(absPath("imagenes/show.png")))
+            self.newPassworButton.setIcon(QIcon(absPath("show.png")))
             self.newPasswordVisibility = True
 
     def CAMBIAR(self):
