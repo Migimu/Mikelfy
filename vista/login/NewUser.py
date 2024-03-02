@@ -36,7 +36,9 @@ class NewUser(QWidget):
         self.email.setFixedHeight(30)
         
         self.country =  QComboBox()
-        self.country.addItems(['', 'España', 'Francia', 'Portugal', 'Alemania'])
+        for count in self.cl.GET_COUNTRIES():
+            self.country.addItem(count.name, count.id)
+        self.country.setCurrentIndex(-1)
         
         self.birthDate = QCalendarWidget()    
         self.birthDate.setMinimumDate(QDate(1900, 1 , 1))
@@ -89,7 +91,7 @@ class NewUser(QWidget):
 
     def CREAR(self):
        isValid = self.cl.VALIDATE_USERNAME(self.user.text())
-       if (self.user.text() == '' or self.name.text() == ''  or self.email.text() == '' or self.country.currentIndex() == 0 or self.password.text() == ''):    
+       if (self.user.text() == '' or self.name.text() == ''  or self.email.text() == '' or self.country.currentIndex() == -1 or self.password.text() == ''):    
            OPEN_INFORMATION_DIALOG("¡Error!", "Faltan campos por rellenar")
        else:
            if isValid:

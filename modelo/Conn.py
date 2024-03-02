@@ -1,10 +1,18 @@
 import pyodbc
+from controlador.clases.Country import Country
 from controlador.clases.Album import Album
 from controlador.clases.Artist import Artist
 from controlador.clases.Genre import Genre
 from controlador.clases.Playlist import Playlist
 from controlador.clases.Song import Song
 from controlador.clases.User import User
+from modelo.mockUsers import usuarios
+from modelo.mockUsers import canciones
+from modelo.mockUsers import albumes
+from modelo.mockUsers import artistas
+from modelo.mockUsers import generos
+from modelo.mockUsers import countries
+from modelo.mockUsers import listaDeReproduccion
 
 
 class CONEXION:
@@ -64,93 +72,92 @@ class CONEXION:
     
     def LOAD_ALBUMS(self):
         
-        listaUsuarios = []
+        listaAlbums = []
         cursor = self.conn.cursor()     
 
-        sql = "SELECT u.id, u.nombre, u.apellido1, u.apellido2, u.direccion, u.codigo_postal, u.email, p.pasword, an.anio_nacimiento FROM Usuario AS u, Passwords AS p, AnosNacimiento AS an WHERE u.id = p.usuario_id AND u.id = an.usuario_id"
+        sql = "SELECT a.id, a.title, a.popularity, a.releaseYear, a.isExplicit, a.genreId FROM Album AS a"
 
         cursor.execute(sql)
 
         for row in cursor:
-            usu = [row.id, row.nombre, row.apellido1, row.apellido2, row.direcion, row.cp, row.email]
-            
-            listaUsuarios.append(usu)
+            alb = Album(row.id, row.title, row.popularity, row.releaseYear, row.isExplicit, row.genreIdo)          
+            listaAlbums.append(alb)
     
         cursor.close()
         
-        return listaUsuarios
+        return listaAlbums
     
     def LOAD_ARTISTS(self):
         
-        listaUsuarios = []
-        cursor = self.conn.cursor()     
+        listaArtists = []
+        cursor = self.conn.cursor()            
 
-        sql = "SELECT u.id, u.nombre, u.apellido1, u.apellido2, u.direccion, u.codigo_postal, u.email, p.pasword, an.anio_nacimiento FROM Usuario AS u, Passwords AS p, AnosNacimiento AS an WHERE u.id = p.usuario_id AND u.id = an.usuario_id"
+        sql = "SELECT a.id, a.title, a.popularity, a.followers, a.countryId, a.genreId FROM Album AS a"
 
         cursor.execute(sql)
 
         for row in cursor:
-            usu = [row.id, row.nombre, row.apellido1, row.apellido2, row.direcion, row.cp, row.email]
+            art = Artist(row.id, row.title, row.popularity, row.followers, row.countryId, row.genreId)
             
-            listaUsuarios.append(usu)
+            listaArtists.append(art)
     
         cursor.close()
         
-        return listaUsuarios
+        return listaArtists
     
     def LOAD_GENRES(self):
         
-        listaUsuarios = []
+        listaGenres = []
         cursor = self.conn.cursor()     
 
-        sql = "SELECT u.id, u.nombre, u.apellido1, u.apellido2, u.direccion, u.codigo_postal, u.email, p.pasword, an.anio_nacimiento FROM Usuario AS u, Passwords AS p, AnosNacimiento AS an WHERE u.id = p.usuario_id AND u.id = an.usuario_id"
+        sql = "SELECT g.id, g.nombre FROM Genre AS g"
 
         cursor.execute(sql)
 
         for row in cursor:
-            usu = [row.id, row.nombre, row.apellido1, row.apellido2, row.direcion, row.cp, row.email]
+            gen = Genre(row.id, row.nombre)
             
-            listaUsuarios.append(usu)
+            listaGenres.append(gen)
     
         cursor.close()
         
-        return listaUsuarios
+        return listaGenres
     
     def LOAD_COUNTRIES(self):
         
-        listaUsuarios = []
+        listaCountries = []
         cursor = self.conn.cursor()     
 
-        sql = "SELECT u.id, u.nombre, u.apellido1, u.apellido2, u.direccion, u.codigo_postal, u.email, p.pasword, an.anio_nacimiento FROM Usuario AS u, Passwords AS p, AnosNacimiento AS an WHERE u.id = p.usuario_id AND u.id = an.usuario_id"
+        sql = "SELECT c.id, c.nombre FROM Country AS c"
 
         cursor.execute(sql)
 
         for row in cursor:
-            usu = [row.id, row.nombre, row.apellido1, row.apellido2, row.direcion, row.cp, row.email]
+            con = Country(row.id, row.nombre)
             
-            listaUsuarios.append(usu)
+            listaCountries.append(con)
     
         cursor.close()
         
-        return listaUsuarios
+        return listaCountries
     
     def LOAD_PLAYLISTS(self):
         
-        listaUsuarios = []
+        listaPlaylists = []
         cursor = self.conn.cursor()     
 
-        sql = "SELECT u.id, u.nombre, u.apellido1, u.apellido2, u.direccion, u.codigo_postal, u.email, p.pasword, an.anio_nacimiento FROM Usuario AS u, Passwords AS p, AnosNacimiento AS an WHERE u.id = p.usuario_id AND u.id = an.usuario_id"
+        sql = "SELECT u.id, u.nombre, u.followers, u.userId FROM Playlist AS p"
 
-        cursor.execute(sql)
+        cursor.execute(sql)       
 
         for row in cursor:
-            usu = [row.id, row.nombre, row.apellido1, row.apellido2, row.direcion, row.cp, row.email]
+            pla = Playlist(row.id, row.nombre, row.followers, row.userId)
             
-            listaUsuarios.append(usu)
+            listaPlaylists.append(pla)
     
         cursor.close()
         
-        return listaUsuarios
+        return listaPlaylists
     
     
     

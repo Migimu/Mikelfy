@@ -24,10 +24,12 @@
   <ItemGroup>
     <Compile Include="controlador\clases\Album.py" />
     <Compile Include="controlador\clases\Artist.py" />
+    <Compile Include="controlador\clases\Country.py" />
     <Compile Include="controlador\clases\Genre.py" />
     <Compile Include="controlador\clases\Playlist.py" />
     <Compile Include="controlador\clases\Song.py" />
     <Compile Include="controlador\clases\User.py" />
+    <Compile Include="controlador\gestores\Countries.py" />
     <Compile Include="modelo\Conn.py" />
     <Compile Include="controlador\ControladorLogin.py" />
     <Compile Include="controlador\ControladorBrowser.py" />

@@ -1,4 +1,5 @@
 from controlador.clases.User import User
+from controlador.gestores.Countries import Countries
 from controlador.gestores.Users import Users
 
 
@@ -6,6 +7,10 @@ class ControladorLogin:
     
     def __init__(self):
         self.users = Users()
+        self.countries = Countries()
+        
+    def GET_COUNTRIES(self):
+        return self.countries.GET_COUNTRIES()
       
     def VALIDAR(self, username, password):       
         user: User = self.users.GET_USER_BY_USERNAME(username)
