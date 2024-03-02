@@ -8,8 +8,8 @@ from controlador.clases.Album import Album
 from controlador.clases.Song import Song
 from vista.browser.Filter import Filter
 from vista.browser.Searchbar import Searchbar
-from vista.util.MediaPlayer import MediaPlayer
-from vista.util.Utils import absPath      
+from vista.MediaPlayer import MediaPlayer
+from assets.util.Utils import absPath      
 
 class Browser(QWidget):
 # class Browser(QMainWindow):

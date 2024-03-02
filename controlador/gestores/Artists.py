@@ -1,5 +1,5 @@
 from modelo.mockUsers import artistas
-from vista.util.Utils import FILTER_ARTIST
+from assets.util.Utils import FILTER_ARTIST, FIND
 
 class Artists:
     
@@ -13,14 +13,7 @@ class Artists:
         return self.__artists
     
     def GET_ARTIST_BY_ID(self, id: int):
-        encontrado = False
-        cont = 0
-        artist = ""
-        while cont < len(self.__artists) and not encontrado:
-            if id == self.__artists[cont].id:
-                artist = self.__artists[cont]
-                encontrado = True
-            cont+=1
+        artist = FIND(self.__artists, id=id)
         return artist
 
     def GET_ARTISTS_BY_NAME(self, name: str):

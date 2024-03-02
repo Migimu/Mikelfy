@@ -1,4 +1,3 @@
-
 class Artist:
     
     def __init__(self, id: int, name: str, country: str, followers: int, popularity: int, genreId: int):

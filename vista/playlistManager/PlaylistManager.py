@@ -4,9 +4,9 @@ from PySide6.QtWidgets import QGridLayout, QHBoxLayout, QLabel, QMessageBox, QPu
 
 from controlador.ControladorPlaylist import ControladorPlaylist
 from vista.playlistManager.AddSongs import AddSongs
-from vista.util.Dialogs import OPEN_ACCEPT_CANCEL_DIALOG, OPEN_INFORMATION_DIALOG, OPEN_TEXT_INPUT_DIALOG
-from vista.util.MediaPlayer import MediaPlayer
-from vista.util.Utils import absPath
+from vista.Dialogs import OPEN_ACCEPT_CANCEL_DIALOG, OPEN_INFORMATION_DIALOG, OPEN_TEXT_INPUT_DIALOG
+from vista.MediaPlayer import MediaPlayer
+from assets.util.Utils import absPath
 
 
 class PlaylistManager(QWidget):

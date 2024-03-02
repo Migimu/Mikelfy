@@ -3,8 +3,8 @@ from PySide6.QtWidgets import QCalendarWidget, QComboBox, QLineEdit, QLabel, QPu
 from PySide6.QtCore import QDate, QSize, Qt,  Signal, Slot
 
 from controlador.ControladorLogin import ControladorLogin
-from vista.util.Dialogs import OPEN_INFORMATION_DIALOG
-from vista.util.Utils import absPath
+from vista.Dialogs import OPEN_INFORMATION_DIALOG
+from assets.util.Utils import absPath
 
 class NewUser(QWidget):
     closed = Signal()

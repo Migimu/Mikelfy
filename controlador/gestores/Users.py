@@ -1,4 +1,4 @@
-
+from assets.util.Utils import FIND
 from controlador.clases.User import User
 from modelo.mockUsers import usuarios
 
@@ -13,15 +13,7 @@ class Users(object):
         return self.__users
     
     def GET_USERS_BY_ID(self, id: int):
-        encontrado = False
-        userEncontrado = None
-        cont = 0
-        while not encontrado and cont < len(self.__users):
-            user: User = self.__users[cont]
-            if user.id == id:
-                encontrado = True
-                userEncontrado = user
-            cont += 1
+        userEncontrado = FIND(self.__users ,id=id)
         return userEncontrado
     
     def GET_USER_BY_USERNAME(self, username: str):

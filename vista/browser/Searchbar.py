@@ -2,7 +2,7 @@ from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import QLineEdit, QHBoxLayout, QPushButton, QWidget
 from PySide6.QtCore import QSize
 
-from vista.util.Utils import absPath
+from assets.util.Utils import absPath
 
 class Searchbar(QWidget):
     def __init__(self):

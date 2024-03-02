@@ -1,3 +1,4 @@
+from assets.util.Utils import FIND
 from modelo.mockUsers import paises
 
 class Countries:   
@@ -10,14 +11,14 @@ class Countries:
 
     def GET_COUNTRIES(self):
         return self.__countries
+    
+    def GET_COUNTRY_BY_ID(self, id):
+        countryEncontrado = FIND(self.__countries ,id=id)
+        return countryEncontrado
 
-    def GET_GENRE_BY_NAME(self):
-        return ""
+    def GET_COUNTRY_BY_NAME(self, name):
+        countryEncontrado = FIND(self.__countries ,name=name)
+        return countryEncontrado
 
-    def GET_GENRES_BY_SONG(self):
-        return []
-
-    def GET_GENRES_BY_ARTIST(self):
-        return []
 
 

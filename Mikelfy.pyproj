@@ -44,16 +44,16 @@
     <Compile Include="modelo\mockUsers.py" />
     <Compile Include="vista\browser\Browser.py" />
     <Compile Include="vista\playlistManager\AddSongs.py" />
-    <Compile Include="vista\util\Dialogs.py" />
+    <Compile Include="vista\Dialogs.py" />
     <Compile Include="vista\browser\Filter.py" />
     <Compile Include="vista\login\Login.py" />
     <Compile Include="vista\login\NewPassword.py" />
     <Compile Include="vista\login\NewUser.py" />
-    <Compile Include="vista\util\MediaPlayer.py" />
+    <Compile Include="vista\MediaPlayer.py" />
     <Compile Include="vista\Menu.py" />
     <Compile Include="vista\playlistManager\PlaylistManager.py" />
     <Compile Include="vista\browser\Searchbar.py" />
-    <Compile Include="vista\util\Utils.py" />
+    <Compile Include="assets\util\Utils.py" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\database\" />
@@ -67,7 +67,7 @@
     <Folder Include="vista\login\" />
     <Folder Include="vista\browser\" />
     <Folder Include="vista\playlistManager\" />
-    <Folder Include="vista\util\" />
+    <Folder Include="assets\util\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\database\SQLQueryMikelfy.sql" />

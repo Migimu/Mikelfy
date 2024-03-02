@@ -7,8 +7,6 @@ class User:
         self.__password = password
         self.__country = country
         self.__birthDate = birthDate
-        self.__favouriteSongs = []
-        self.__followedPlaylists = []
         
     def __str__(self):
         return self.__id ,'.- ', self.__username  
@@ -68,33 +66,5 @@ class User:
     @birthDate.setter
     def birthDate(self, birthDate: str):
         self.__birthDate = birthDate
-    
-    @property
-    def favouriteSongs(self):
-        return self.__favouriteSongs
-    
-    @favouriteSongs.setter
-    def favouriteSongs(self, favouriteSongs):
-        self.__favouriteSongs = favouriteSongs
-
-    def ADD_FAVOURITE_SONGS(self, songId: int):
-        self.__favouriteSongs.append(songId)
-
-    def REMOVE_FROM_FAVOURITE_SONGS(self, songId: int):
-        self.__favouriteSongs.remove(songId)
-
-    @property
-    def followedPlaylists(self):
-        return self.__followedPlaylists
-    
-    @followedPlaylists.setter
-    def followedPlaylists(self, followedPlaylists):
-        self.__followedPlaylists = followedPlaylists
-
-    def FOLLOW_PLAYLIST(self, playlistId: int):
-        self.__followedPlaylists.append(playlistId)
-
-    def UNFOLLOW_PLAYLIST(self, playlistId: int):
-        self.__followedPlaylists.remove(playlistId) 
 
 

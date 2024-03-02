@@ -1,5 +1,6 @@
+from assets.util.Utils import FIND
 from modelo.mockUsers import canciones
-from vista.util.Utils import FILTER
+from assets.util.Utils import FILTER
 
 class Songs:
 
@@ -13,14 +14,7 @@ class Songs:
         return self.__songs
 
     def GET_SONG_BY_ID(self, id: int):
-        encontrado = False
-        cont = 0
-        song = ""
-        while cont < len(self.__songs) and not encontrado:
-            if id == self.__songs[cont].id:
-                song = self.__songs[cont]
-                encontrado = True
-            cont+=1
+        song = FIND(self.__songs, id=id)
         return song
 
     def GET_SONGS_BY_NAME(self, name: str):

@@ -21,3 +21,18 @@ def FILTER_ARTIST(item, name: str, genre: int):
         (genre == None or genre == item.genre)):
         return True
     return False
+
+def FIND(lista, id = None, name = None, callback = None):
+    encontrado = False
+    itemEncontrado = None
+    cont = 0
+    while not encontrado and cont < len(lista):
+        item = lista[cont]
+        if (item.id == id) or (item.name == name):
+            if callback != None:
+                callback()
+            else:          
+                itemEncontrado = item
+            encontrado = True
+        cont += 1
+    return itemEncontrado

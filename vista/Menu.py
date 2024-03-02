@@ -3,9 +3,9 @@ from PySide6.QtCore import QSize, Signal, Slot
 from PySide6.QtWidgets import QGridLayout, QMessageBox, QPushButton, QWidget
 from vista.browser.Browser import Browser
 
-from vista.util.Dialogs import OPEN_ACCEPT_CANCEL_DIALOG
+from vista.Dialogs import OPEN_ACCEPT_CANCEL_DIALOG
 from vista.playlistManager.PlaylistManager import PlaylistManager
-from vista.util.Utils import absPath
+from assets.util.Utils import absPath
 
 
 class Menu(QWidget):

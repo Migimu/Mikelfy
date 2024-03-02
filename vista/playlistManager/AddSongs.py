@@ -2,9 +2,9 @@
 from PySide6.QtWidgets import QCheckBox, QHBoxLayout, QLabel, QLineEdit, QMessageBox, QPushButton, QScrollArea, QVBoxLayout, QWidget
 from PySide6.QtCore import QSize, Qt,  Signal, Slot
 from controlador.ControladorPlaylist import ControladorPlaylist
-from vista.util.Dialogs import OPEN_ACCEPT_CANCEL_DIALOG, OPEN_INFORMATION_DIALOG
+from vista.Dialogs import OPEN_ACCEPT_CANCEL_DIALOG, OPEN_INFORMATION_DIALOG
 
-from vista.util.Utils import absPath      
+from assets.util.Utils import absPath      
 
 class AddSongs(QWidget):
     closed = Signal()

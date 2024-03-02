@@ -1,8 +1,8 @@
 from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import QCheckBox, QComboBox, QGridLayout, QPushButton, QSpinBox, QWidget
-from PySide6.QtCore import QSize
+from PySide6.QtCore import QSize, Qt
 
-from vista.util.Utils import absPath
+from assets.util.Utils import absPath
 
 class Filter(QWidget):
     def __init__(self, genres):
@@ -45,7 +45,7 @@ class Filter(QWidget):
         layout.addWidget(self.clearFilters, 1, 3)  
         
         self.setLayout(layout)
-        
+               
     def CLEAR_FILTERS(self):
         self.artistCheckbox.setChecked(True)
         self.albumsCheckbox.setChecked(True)

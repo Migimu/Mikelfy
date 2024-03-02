@@ -1,5 +1,5 @@
 from modelo.mockUsers import albumes
-from vista.util.Utils import FILTER
+from assets.util.Utils import FILTER, FIND
 
 class Albums:
     
@@ -13,14 +13,7 @@ class Albums:
         return self.__albums
     
     def GET_ALBUM_BY_ID(self, id: int):
-        encontrado = False
-        cont = 0
-        album = ""
-        while cont < len(self.__albums) and not encontrado:
-            if id == self.__albums[cont].id:
-                album = self.__albums[cont]
-                encontrado = True
-            cont+=1
+        album = FIND(self.__albums, id=id)
         return album
 
     def GET_ALBUMS_BY_NAME(self, name: str):

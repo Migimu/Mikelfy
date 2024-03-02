@@ -1,6 +1,6 @@
+from assets.util.Utils import FIND
 from modelo.mockUsers import listaDeReproduccion
 from controlador.clases.Playlist import Playlist
-from controlador.clases.User import User
 
 class Playlists:
     
@@ -12,20 +12,13 @@ class Playlists:
 
     def GET_PLAYLISTS(self):
         return self.__playlists
-
-    def GET_PLAYLIST_BY_NAME(self):
-        return ""
        
     def GET_PLAYLIST_BY_ID(self, id):
-        encontrado = False
-        playlistEncontrado = None
-        cont = 0
-        while not encontrado and cont < len(self.__playlists):
-            playlist: Playlist = self.__playlists[cont]
-            if playlist.id == id:
-                encontrado = True
-                playlistEncontrado = playlist
-            cont += 1
+        playlistEncontrado = FIND(self.__playlists, id = id)
+        return playlistEncontrado
+
+    def GET_PLAYLIST_BY_NAME(self, name):
+        playlistEncontrado = FIND(self.__playlists, name = name)
         return playlistEncontrado
 
     def GET_PLAYLISTS_BY_USER(self, userId):
@@ -37,10 +30,8 @@ class Playlists:
         return userPlaylists
 
     def GET_TOP_PLAYLISTS(self):
-        return ""
-
-    def GET_TOP_PLAYLISTS_BY_COUNTRY(self):
-        return ""   
+        sortedPlaylists = sorted(self.__playlists, key=lambda x: x.followers, reverse=True)       
+        return sortedPlaylists[:5]
 
     def ADD_PLAYLIST(self, name:str, followers: int, userId: int):
         playlist = Playlist(self.GET_LAST_ID(), name, followers, userId)
@@ -89,5 +80,4 @@ class Playlists:
         else:
             id = int(self.__playlists[lenght - 1].id) + 1         
         return id
-
 

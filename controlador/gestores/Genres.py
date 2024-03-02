@@ -1,3 +1,4 @@
+from assets.util.Utils import FIND
 from modelo.mockUsers import generos
 
 class Genres:   
@@ -10,14 +11,14 @@ class Genres:
 
     def GET_GENRES(self):
         return self.__genres
+    
+    def GET_GENRE_BY_ID(self, id):
+        genreEncontrado = FIND(self.__genres, id=id)
+        return genreEncontrado
 
-    def GET_GENRE_BY_NAME(self):
-        return ""
+    def GET_GENRE_BY_NAME(self, name):
+        genreEncontrado = FIND(self.__genres, name=name)
+        return genreEncontrado
 
-    def GET_GENRES_BY_SONG(self):
-        return []
-
-    def GET_GENRES_BY_ARTIST(self):
-        return []
 
 
