@@ -6,14 +6,6 @@ from controlador.clases.Genre import Genre
 from controlador.clases.Playlist import Playlist
 from controlador.clases.Song import Song
 from controlador.clases.User import User
-from modelo.mockUsers import usuarios
-from modelo.mockUsers import canciones
-from modelo.mockUsers import albumes
-from modelo.mockUsers import artistas
-from modelo.mockUsers import generos
-from modelo.mockUsers import countries
-from modelo.mockUsers import listaDeReproduccion
-
 
 class CONEXION:
     def __init__(self):
@@ -26,14 +18,14 @@ class CONEXION:
             print(f"Error al conectar a la base de datos: {e}")
             
     def LOAD_DATA(self):
-        usuarios = self.LOAD_USERS()
-        canciones = self.LOAD_SONGS()
-        albumes = self.LOAD_ALBUMS()
-        artistas = self.LOAD_ARTISTS()
-        generos = self.LOAD_GENRES()
-        countries = self.LOAD_COUNTRIES()                    
-        listaDeReproduccion = self.LOAD_PLAYLISTS()
-        
+        global localStorage
+        localStorage.users = self.LOAD_USERS()
+        localStorage.songs = self.LOAD_SONGS()
+        localStorage.albums = self.LOAD_ALBUMS()
+        localStorage.artists = self.LOAD_ARTISTS()
+        localStorage.genres = self.LOAD_GENRES()
+        localStorage.countries = self.LOAD_COUNTRIES()
+        localStorage.playlists = self.LOAD_PLAYLISTS()      
             
     def LOAD_USERS(self):
         
@@ -80,7 +72,7 @@ class CONEXION:
         cursor.execute(sql)
 
         for row in cursor:
-            alb = Album(row.id, row.title, row.popularity, row.releaseYear, row.isExplicit, row.genreIdo)          
+            alb = Album(row.id, row.title, row.popularity, row.releaseYear, row.isExplicit, row.genreId)          
             listaAlbums.append(alb)
     
         cursor.close()
@@ -92,7 +84,7 @@ class CONEXION:
         listaArtists = []
         cursor = self.conn.cursor()            
 
-        sql = "SELECT a.id, a.title, a.popularity, a.followers, a.countryId, a.genreId FROM Album AS a"
+        sql = "SELECT a.id, a.title, a.popularity, a.followers, a.countryId, a.genreId FROM Artist AS a"
 
         cursor.execute(sql)
 
@@ -146,7 +138,7 @@ class CONEXION:
         listaPlaylists = []
         cursor = self.conn.cursor()     
 
-        sql = "SELECT u.id, u.nombre, u.followers, u.userId FROM Playlist AS p"
+        sql = "SELECT p.id, p.nombre, p.followers, p.userId FROM Playlist AS p"
 
         cursor.execute(sql)       
 

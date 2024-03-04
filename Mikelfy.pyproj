@@ -41,6 +41,7 @@
     <Compile Include="controlador\gestores\Playlists.py" />
     <Compile Include="controlador\gestores\Songs.py" />
     <Compile Include="Main.py" />
+    <Compile Include="modelo\LocalStorage.py" />
     <Compile Include="modelo\mockUsers.py" />
     <Compile Include="vista\browser\Browser.py" />
     <Compile Include="vista\playlistManager\AddSongs.py" />

@@ -36,3 +36,12 @@ def FIND(lista, id = None, name = None, callback = None):
             encontrado = True
         cont += 1
     return itemEncontrado
+
+def GET_LAST_ID(list):
+    id = 0
+    lenght = len(list)
+    if lenght == 0:
+        id = 1
+    else:
+        id = int(list[lenght - 1].id) + 1         
+    return id

@@ -1,11 +1,11 @@
-from assets.util.Utils import FIND
+from assets.util.Utils import FIND, GET_LAST_ID
 from controlador.clases.User import User
-from modelo.mockUsers import usuarios
+from modelo.Conn import localStorage
 
-class Users(object):
+class Users:
     def __init__(self, users = []):
         if len(users) == 0:
-            self.__users = usuarios
+            self.__users = localStorage.users
         else:            
             self.__users = users
         
@@ -20,7 +20,6 @@ class Users(object):
         encontrado = False
         userEncontrado = None
         cont = 0       
-        print(len(self.__users))
         while not encontrado and cont < len(self.__users):
             user: User = self.__users[cont]
             if user.username == username:
@@ -30,7 +29,7 @@ class Users(object):
         return userEncontrado
     
     def ADD_USER(self, user: User):
-        user.id = self.GET_LAST_ID()
+        user.id = GET_LAST_ID(self.__users)
         self.__users.append(user)
         usuarios = self.__users
 
@@ -44,21 +43,8 @@ class Users(object):
                 self.__users[cont].password = newPassword
             cont += 1
         usuarios = self.__users             
-
-    def DELETE_USER(self, user: User):
-        self.__users.remove(user)
             
-    def GET_LAST_ID(self):
-        id = 0
-        lenght = len(self.__users)
-        if lenght == 0:
-            id = 1
-        else:
-            id = int(self.__users[lenght - 1].id) + 1         
-        return id
-
-    def GET_LENGHT(self):        
-        return len(self.__users)
+    
 
         
 

@@ -1,4 +1,4 @@
-from assets.util.Utils import FIND
+from assets.util.Utils import FIND, GET_LAST_ID
 from modelo.mockUsers import listaDeReproduccion
 from controlador.clases.Playlist import Playlist
 
@@ -34,7 +34,7 @@ class Playlists:
         return sortedPlaylists[:5]
 
     def ADD_PLAYLIST(self, name:str, followers: int, userId: int):
-        playlist = Playlist(self.GET_LAST_ID(), name, followers, userId)
+        playlist = Playlist(GET_LAST_ID(), name, followers, userId)
         self.__playlists.append(playlist)
         listaDeReproduccion = self.__playlists
 
@@ -71,13 +71,3 @@ class Playlists:
                 self.__playlists[cont].REMOVE_SONG(songId)
             cont += 1
         listaDeReproduccion = self.__playlists
-
-    def GET_LAST_ID(self):
-        id = 0
-        lenght = len(self.__playlists)
-        if lenght == 0:
-            id = 1
-        else:
-            id = int(self.__playlists[lenght - 1].id) + 1         
-        return id
-
