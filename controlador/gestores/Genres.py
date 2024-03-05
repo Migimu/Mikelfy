@@ -1,11 +1,11 @@
 from assets.util.Utils import FIND
-from modelo.mockUsers import generos
+from modelo.LocalStorage import localStorage
 
 class Genres:   
 
     def __init__(self, genres = []):
         if len(genres) == 0:
-            self.__genres = generos
+            self.__genres = localStorage.genres
         else:            
             self.__genres = genres
 

@@ -65,6 +65,9 @@ class LOCAL_STORAGE:
     @genres.setter
     def genres(self, genres):
         self.__genres = genres
+        
+global localStorage
+localStorage = LOCAL_STORAGE()
 
 
 

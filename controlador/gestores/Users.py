@@ -1,6 +1,6 @@
 from assets.util.Utils import FIND, GET_LAST_ID
 from controlador.clases.User import User
-from modelo.Conn import localStorage
+from modelo.LocalStorage import localStorage
 
 class Users:
     def __init__(self, users = []):
@@ -19,7 +19,7 @@ class Users:
     def GET_USER_BY_USERNAME(self, username: str):
         encontrado = False
         userEncontrado = None
-        cont = 0       
+        cont = 0
         while not encontrado and cont < len(self.__users):
             user: User = self.__users[cont]
             if user.username == username:

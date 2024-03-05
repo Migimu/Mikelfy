@@ -1,12 +1,12 @@
 from assets.util.Utils import FIND
-from modelo.mockUsers import canciones
 from assets.util.Utils import FILTER
+from modelo.LocalStorage import localStorage
 
 class Songs:
 
     def __init__(self, songs = []):
         if len(songs) == 0:
-            self.__songs = canciones
+            self.__songs = localStorage.songs
         else:            
             self.__songs = songs
     

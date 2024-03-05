@@ -1,11 +1,11 @@
 from assets.util.Utils import FIND
-from modelo.mockUsers import paises
+from modelo.LocalStorage import localStorage
 
 class Countries:   
 
     def __init__(self, countries = []):
         if len(countries) == 0:
-            self.__countries = paises
+            self.__countries = localStorage.countries
         else:            
             self.__countries = countries
 

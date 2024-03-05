@@ -5,7 +5,6 @@ from controlador.clases.Playlist import Playlist
 from controlador.clases.Song import Song
 from controlador.clases.User import User
 from controlador.clases.Country import Country
-from modelo.LocalStorage import LOCAL_STORAGE
 
 usuarios = [User(1, 'mikel', '1234', '1234', '1234', '1234', '1234'), 
                             User(2, 'pepe', '1234', '1234', '1234', '1234', '1234'), 
@@ -127,8 +126,6 @@ generos = [Genre(1, 'Rock'),
             Genre(4, 'Funk'),
             Genre(5, 'Pop')]
         
-
-
 
 
 

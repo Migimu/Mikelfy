@@ -1,12 +1,12 @@
 from assets.util.Utils import FIND, GET_LAST_ID
-from modelo.mockUsers import listaDeReproduccion
+from modelo.LocalStorage import localStorage
 from controlador.clases.Playlist import Playlist
 
 class Playlists:
     
     def __init__(self, playlists = []):
         if len(playlists) == 0:
-            self.__playlists = listaDeReproduccion
+            self.__playlists = localStorage.playlists
         else:            
             self.__playlists = playlists                
 

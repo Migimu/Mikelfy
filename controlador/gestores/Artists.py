@@ -1,11 +1,11 @@
-from modelo.mockUsers import artistas
+from modelo.LocalStorage import localStorage
 from assets.util.Utils import FILTER_ARTIST, FIND
 
 class Artists:
     
     def __init__(self, artists = []):
         if len(artists) == 0:
-            self.__artists = artistas
+            self.__artists = localStorage.artists
         else:            
             self.__artists = artists
     

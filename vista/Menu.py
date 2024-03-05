@@ -1,6 +1,7 @@
 ﻿from PySide6.QtGui import QIcon
 from PySide6.QtCore import QSize, Signal, Slot
 from PySide6.QtWidgets import QGridLayout, QMessageBox, QPushButton, QWidget
+from controlador.clases.User import User
 from vista.browser.Browser import Browser
 
 from vista.Dialogs import OPEN_ACCEPT_CANCEL_DIALOG
@@ -11,13 +12,13 @@ from assets.util.Utils import absPath
 class Menu(QWidget):
     closed = Signal()
     
-    def __init__(self, user):
+    def __init__(self, user: User):
         super().__init__()
         self.user = user
         
         self.resize(500, 300)
         self.setMaximumSize(500, 300)
-        self.setWindowTitle("Menu")
+        self.setWindowTitle("Bievenid@ "+ user.username)
 
         formulario = QGridLayout()            
         
