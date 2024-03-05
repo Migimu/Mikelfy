@@ -12,7 +12,6 @@ from vista.MediaPlayer import MediaPlayer
 from assets.util.Utils import absPath      
 
 class Browser(QWidget):
-# class Browser(QMainWindow):
     closed = Signal()
     def __init__(self, user):
         super().__init__()

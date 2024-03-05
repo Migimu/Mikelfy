@@ -12,15 +12,15 @@ class CONEXION:
     def __init__(self):
         try:  
             #Clase
-            # self.conn = pyodbc.connect('Driver={SQL Server};'
-            #                 'Server=INKAULA112;'
-            #                 'Database=Mikelfy;'
-            #                 'Trusted_Connection=yes;')
-            #Casa
             self.conn = pyodbc.connect('Driver={SQL Server};'
-                            'Server=DESKTOP-D2DV5DS;'
+                            'Server=INKAULA112;'
                             'Database=Mikelfy;'
                             'Trusted_Connection=yes;')
+            #Casa
+            # self.conn = pyodbc.connect('Driver={SQL Server};'
+            #                 'Server=DESKTOP-D2DV5DS;'
+            #                 'Database=Mikelfy;'
+            #                 'Trusted_Connection=yes;')
         except Exception as e:
             print(f"Error al conectar a la base de datos: {e}")
             
@@ -209,7 +209,7 @@ class CONEXION:
             
             sql = """ SELECT p.id, p.nombre, p.followers, p.userId, s.songId
                     FROM Playlist AS p
-                    INNER JOIN ListSongPlaylist AS s ON p.id = s.playlistId"""
+                    LEFT JOIN ListSongPlaylist AS s ON p.id = s.playlistId"""
                     
             cursor.execute(sql)   
                     
@@ -219,7 +219,7 @@ class CONEXION:
                 if row.id not in playlistDict:
                     playlistDict[row.id] = Playlist(row.id, row.nombre, row.followers, row.userId)
                     
-                if row.songId not in playlistDict[row.id].songs:
+                if row.songId not in playlistDict[row.id].songs and row.songId != None:
                     playlistDict[row.id].ADD_SONG(row.songId)
                                
             listaPlaylists = list(playlistDict.values())        
@@ -273,13 +273,24 @@ class CONEXION:
         try:
             if len(localStorage.createdPlaylists) > 0:
                 cursor = self.conn.cursor()
-            
-                sql = "INSERT INTO Playlist (id, nombre, username, email, contrasenia, birthdate, countryId) VALUES (?, ?, ?, ?, ?, ?, ?)"
-                values=[]
-                for newUser in localStorage.createdPlaylists:                
-                    val = (newUser.id, newUser.name, newUser.username, newUser.email, newUser.password, newUser.birthDate, newUser.country)
-                    values.append(val)
-                cursor.executemany(sql, values)
+                sql = "SELECT MAX(id) AS id FROM ListSongPlaylist"
+                cursor.execute(sql)
+                idSP = None
+                for row in cursor:
+                    idSP = row.id + 1
+                sqlPlaylist = "INSERT INTO Playlist (id, nombre, followers, userId) VALUES (?, ?, ?, ?)"
+                sqlRelation = "INSERT INTO ListSongPlaylist Playlist (id, songId, playlistId) VALUES ( ?, ?, ?)"
+                valuesPlaylist=[]
+                valuesRelation=[]
+                for newPlaylist in localStorage.createdPlaylists:                
+                    val = (newPlaylist.id, newPlaylist.name, newPlaylist.followers, newPlaylist.owner)
+                    valuesPlaylist.append(val)
+                    for songId in newPlaylist.songs: 
+                        valuesRelation.append((idSP, songId, newPlaylist.id))
+                        idSP += 1
+                cursor.executemany(sqlPlaylist, valuesPlaylist)
+                if len(valuesRelation) > 0:
+                    cursor.executemany(sqlRelation, valuesRelation)
                 cursor.commit()
                 print(cursor.rowcount, "record(s) affected")
                 cursor.close()           
@@ -293,13 +304,26 @@ class CONEXION:
         try:
             if len(localStorage.updatedPlaylists) > 0:
                 cursor = self.conn.cursor()     
-
-                sql = "UPDATE Playlist SET nombre = ? , username = ?, email = ?, contrasenia = ?, birthdate = ?, countryId = ? WHERE id = ?"       
-                values=[]
-                for updatedUser in localStorage.updatedPlaylists:                
-                    val = (updatedUser.name, updatedUser.username, updatedUser.email, updatedUser.password, updatedUser.birthDate, updatedUser.country, updatedUser.id)
-                    values.append(val)
-                cursor.executemany(sql, values)
+                sql = "SELECT MAX(id) AS id FROM ListSongPlaylist"
+                cursor.execute(sql)
+                idSP = None
+                for row in cursor:
+                    idSP = row.id + 1
+                sqlPlaylist = "UPDATE Playlist SET nombre = ? , followers = ?, userId = ? WHERE id = ?"       
+                sqlRelation = "INSERT INTO ListSongPlaylist (id, songId, playlistId) VALUES (?, ?, ?)"
+                valuesPlaylist=[]
+                valuesRelation=[]
+                for updatedPlaylist in localStorage.updatedPlaylists:                
+                    val = (updatedPlaylist.name, updatedPlaylist.followers, updatedPlaylist.owner, updatedPlaylist.id)
+                    valuesPlaylist.append(val)
+                    for songId in updatedPlaylist.songs: 
+                        valuesRelation.append((idSP, songId, updatedPlaylist.id))
+                        idSP += 1
+                ids = ",".join(str(updatedPlaylist.id) for updatedPlaylist in localStorage.updatedPlaylists)
+                sql = "DELETE FROM ListSongPlaylist WHERE id IN (" + ids + ")"       
+                cursor.execute(sql) 
+                cursor.executemany(sqlPlaylist, valuesPlaylist)                
+                cursor.executemany(sqlRelation, valuesRelation)
                 cursor.commit()
                 print(cursor.rowcount, "record(s) affected")    
                 cursor.close()
@@ -311,16 +335,12 @@ class CONEXION:
     def DELETE_PLAYLISTS(self):
         try:
             if len(localStorage.deletedPlaylists) > 0:
-                cursor = self.conn.cursor()     
-
-                sql = "DELETE FROM Playlist WHERE id = ?"       
-                values=[]
-                for deletedPlaylist in localStorage.deletedPlaylists:                
-                    val = (deletedPlaylist.id)
-                    values.append(val)
-                cursor.executemany(sql, values)
-                sql = "DELETE FROM ListSongPlaylist WHERE playlistId = ?"
-                cursor.executemany(sql, values)
+                cursor = self.conn.cursor()
+                ids = ",".join(str(deletedPlaylist.id) for deletedPlaylist in localStorage.deletedPlaylists)
+                sql = "DELETE FROM ListSongPlaylist WHERE playlistId IN (" + ids + ")"
+                cursor.execute(sql)
+                sql = "DELETE FROM Playlist WHERE id IN (" + ids + ")"       
+                cursor.execute(sql)                               
                 cursor.commit()
                 print(cursor.rowcount, "record(s) affected")    
                 cursor.close()

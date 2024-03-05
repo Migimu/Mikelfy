@@ -34,9 +34,9 @@ class Playlists:
         return sortedPlaylists[:5]
 
     def ADD_PLAYLIST(self, name:str, followers: int, userId: int):
-        playlist = Playlist(GET_LAST_ID(), name, followers, userId)
+        playlist = Playlist(GET_LAST_ID(self.__playlists), name, followers, userId)
         self.__playlists.append(playlist)
-        listaDeReproduccion = self.__playlists
+        localStorage.createdPlaylists = playlist
 
     def UPDATE_PLAYLIST(self, id: int, name:str, songsId = []):
         encontrado = False
@@ -47,8 +47,8 @@ class Playlists:
                 encontrado = True
                 self.__playlists[cont].name = name
                 self.__playlists[cont].songs = songsId
-            cont += 1
-        listaDeReproduccion = self.__playlists
+                localStorage.updatedPlaylists = self.__playlists[cont]
+            cont += 1       
 
     def DELETE_PLAYLIST(self, id: int):
         encontrado = False
@@ -57,9 +57,9 @@ class Playlists:
             playlist: Playlist = self.__playlists[cont]
             if playlist.id == id:
                 encontrado = True
-                self.__playlists.pop(cont)
+                localStorage.deletedPlaylists = self.__playlists[cont]
+                self.__playlists.pop(cont)               
             cont += 1
-        listaDeReproduccion = self.__playlists
         
     def DELETE_SONG_FROM_PLAYLIST(self,playlistId: int, songId: int):
         encontrado = False
@@ -69,5 +69,5 @@ class Playlists:
             if playlist.id == playlistId:
                 encontrado = True
                 self.__playlists[cont].REMOVE_SONG(songId)
+                localStorage.updatedPlaylists = self.__playlists[cont]
             cont += 1
-        listaDeReproduccion = self.__playlists

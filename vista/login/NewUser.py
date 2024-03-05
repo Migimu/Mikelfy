@@ -95,7 +95,7 @@ class NewUser(QWidget):
            OPEN_INFORMATION_DIALOG("¡Error!", "Faltan campos por rellenar")
        else:
            if isValid:
-               self.cl.RESGISTRATE(self.user.text(), self.name.text(), self.email.text(), self.country.currentIndex(), self.birthDate.selectedDate().year(), self.password.text())
+               self.cl.RESGISTRATE(self.user.text(), self.name.text(), self.email.text(), self.country.currentData(), self.birthDate.selectedDate().year(), self.password.text())
                OPEN_INFORMATION_DIALOG("¡Enhorabuena!", "Tu usuario ha sido creado correctamente")
                self.close()
            else:

@@ -49,6 +49,9 @@ class ControladorLogin:
         conn = CONEXION()
         conn.CREATE_USERS()   
         conn.UPDATE_USERS()   
+        conn.CREATE_PLAYLISTS()   
+        conn.UPDATE_PLAYLISTS()   
+        conn.DELETE_PLAYLISTS()   
  
         
 
