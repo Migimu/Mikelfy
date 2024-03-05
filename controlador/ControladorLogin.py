@@ -1,6 +1,7 @@
 from controlador.clases.User import User
 from controlador.gestores.Countries import Countries
 from controlador.gestores.Users import Users
+from modelo.Conn import CONEXION
 
 
 class ControladorLogin:
@@ -43,6 +44,12 @@ class ControladorLogin:
         
     def CHANGE_PASSWORD(self, userId, newPassword):  
         self.users.CHANGE_USER_PASSWORD(userId, newPassword)
+        
+    def LOGOUT(self):
+        conn = CONEXION()
+        conn.CREATE_USERS()   
+        conn.UPDATE_USERS()   
+ 
         
 
         

@@ -31,7 +31,7 @@ class Users:
     def ADD_USER(self, user: User):
         user.id = GET_LAST_ID(self.__users)
         self.__users.append(user)
-        usuarios = self.__users
+        localStorage.createdUsers = user
 
     def CHANGE_USER_PASSWORD(self, userId, newPassword):
         encontrado = False
@@ -41,8 +41,9 @@ class Users:
             if user.id == userId:
                 encontrado = True
                 self.__users[cont].password = newPassword
+                localStorage.updatedUsers = self.__users[cont]
             cont += 1
-        usuarios = self.__users             
+                     
             
     
 

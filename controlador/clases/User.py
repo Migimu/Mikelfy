@@ -1,5 +1,5 @@
 class User:
-    def __init__(self, id: int, username: str, name: str, email: str, password: str, country: str, birthDate: str):
+    def __init__(self, id: int, username: str, name: str, email: str, password: str, country: int, birthDate: str):
         self.__id = id
         self.__username = username
         self.__name = name
@@ -48,7 +48,7 @@ class User:
         return self.__password
     
     @password.setter
-    def password(self, password: str):
+    def password(self, password: int):
         self.__password = password         
         
     @property

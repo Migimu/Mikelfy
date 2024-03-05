@@ -108,12 +108,10 @@ class MainWindow(QMainWindow):
         self.user.setText("")
         self.password.setText("")
         self.show()
-
-            
-
-# Creamos la aplicación, la ventana e iniciamos el bucle
-# if __name__ == "__main__":
-#     app = QApplication(sys.argv)
-#     window = MainWindow()
-#     window.show()
-#     sys.exit(app.exec())
+    
+    @Slot()
+    def closeEvent(self, event):
+        respuesta = OPEN_ACCEPT_CANCEL_DIALOG(self, "Adios", "¿Seguro que quieres cerrar el programa?")
+        if respuesta == QMessageBox.Ok:
+            self.cl.LOGOUT()
+            super().closeEvent(event)

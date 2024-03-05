@@ -230,91 +230,105 @@ class CONEXION:
         except Exception as e:
             print(f"Error al recuperar los datos: {e}") 
         
-    
-    
-    
-
-    
-
-    
-    
-    # def UPDATE(self, id, nombre, apellido1, apellido2, direcion, cp, email, anioNacimiento):
-    #     cursor = self.conn.cursor()     
-
-    #     sql = "UPDATE Usuario SET nombre = ? , apellido1 = ?, apellido2 = ?, direcion = ?, cp = ?, email = ? WHERE id = ?"
-        
-    #     val = (nombre, apellido1, apellido2, direcion, cp, email, int(id))
-
-    #     cursor.execute(sql, val)
-        
-    #     sql = "UPDATE AnosNacimiento SET anio_nacimiento = ? WHERE usuario_id = ?"
-        
-    #     val = (nombre, apellido1, apellido2, direcion, cp, email, int(id))
-
-    #     cursor.execute(sql, val)
-
-    #     self.conn.commit()
-
-    #     print(cursor.rowcount, "record(s) affected")
-    
-    #     cursor.close()
-    
-    # def DELETE(self, id):
-    #     cursor = self.conn.cursor()     
-
-    #     sql = "DELETE FROM Usuario WHERE id = ?"
-        
-    #     val = (id)
-
-    #     cursor.execute(sql, val)
-
-    #     self.conn.commit()
-
-    #     print(cursor.rowcount, "record(s) affected")
-    
-    #     cursor.close()
-    
-    # def INSERT(self, nombre, apellido1, apellido2, direcion, cp, email, anioNacimiento, password):
-        
-    #     try:
-    #         cursor = self.conn.cursor()
-        
-    #         val = (nombre, apellido1, apellido2, direcion, cp, email)
-        
-    #         cursor.execute(sql, val)
-        
-    #     except pyodbc.Error as e:
-    #         print(f"Error de SQL al cargar libros desde la base de datos: {e}")
-    #     except Exception as e:
-    #         print(f"Error al cargar libros desde la base de datos: {e}")
+    def CREATE_USERS(self):        
+        try:
+            if len(localStorage.createdUsers) > 0:
+                cursor = self.conn.cursor()
+            
+                sql = "INSERT INTO Usuario (id, nombre, username, email, contrasenia, birthdate, countryId) VALUES (?, ?, ?, ?, ?, ?, ?)"
+                values=[]
+                for newUser in localStorage.createdUsers:                
+                    val = (newUser.id, newUser.name, newUser.username, newUser.email, newUser.password, newUser.birthDate, newUser.country)
+                    values.append(val)
+                cursor.executemany(sql, values)
+                cursor.commit()
+                print(cursor.rowcount, "record(s) affected")
+                cursor.close()           
+        except pyodbc.Error as e:
+            print(f"Error de SQL al insetar los datos: {e}")
+        except Exception as e:
+            print(f"Error al conectar con la base de datos: {e}")
              
-    #     cursor = self.conn.cursor()     
+            
+    def UPDATE_USERS(self):
+        try:
+            if len(localStorage.updatedUsers) > 0:
+                cursor = self.conn.cursor()     
 
-    #     sql = "INSERT INTO Usuario (id, nombre, apellido1, apellido2, direcion, cp, email) VALUES ((SELECT MAX(id) FROM Usuario) + 1, ?, ?, ?, ?, ?, ?)"
-        
-    #     val = (nombre, apellido1, apellido2, direcion, cp, email)
-        
-    #     cursor.execute(sql, val)
-        
-    #     sql = "INSERT INTO AnosNacimiento (id, anio_nacimiento, usuario_id) VALUES ((SELECT MAX(id) FROM AnosNacimiento) + 1, ?, ?)"
-        
-    #     val = (anioNacimiento, int(id))
+                sql = "UPDATE Usuario SET nombre = ? , username = ?, email = ?, contrasenia = ?, birthdate = ?, countryId = ? WHERE id = ?"       
+                values=[]
+                for updatedUser in localStorage.updatedUsers:                
+                    val = (updatedUser.name, updatedUser.username, updatedUser.email, updatedUser.password, updatedUser.birthDate, updatedUser.country, updatedUser.id)
+                    values.append(val)
+                cursor.executemany(sql, values)
+                cursor.commit()
+                print(cursor.rowcount, "record(s) affected")    
+                cursor.close()
+        except pyodbc.Error as e:
+            print(f"Error de SQL al actualizar los datos: {e}")
+        except Exception as e:
+            print(f"Error al conectar con la base de datos: {e}")
+            
+    def CREATE_PLAYLISTS(self):        
+        try:
+            if len(localStorage.createdPlaylists) > 0:
+                cursor = self.conn.cursor()
+            
+                sql = "INSERT INTO Playlist (id, nombre, username, email, contrasenia, birthdate, countryId) VALUES (?, ?, ?, ?, ?, ?, ?)"
+                values=[]
+                for newUser in localStorage.createdPlaylists:                
+                    val = (newUser.id, newUser.name, newUser.username, newUser.email, newUser.password, newUser.birthDate, newUser.country)
+                    values.append(val)
+                cursor.executemany(sql, values)
+                cursor.commit()
+                print(cursor.rowcount, "record(s) affected")
+                cursor.close()           
+        except pyodbc.Error as e:
+            print(f"Error de SQL al insetar los datos: {e}")
+        except Exception as e:
+            print(f"Error al conectar con la base de datos: {e}")
+             
+            
+    def UPDATE_PLAYLISTS(self):
+        try:
+            if len(localStorage.updatedPlaylists) > 0:
+                cursor = self.conn.cursor()     
 
-    #     cursor.execute(sql, val)
-        
-    #     sql = "INSERT INTO Passwords (id, password, usuario_id) VALUES ((SELECT MAX(id) FROM AnosNacimiento) + 1, ?, ?)"
-        
-    #     val = (password )
+                sql = "UPDATE Playlist SET nombre = ? , username = ?, email = ?, contrasenia = ?, birthdate = ?, countryId = ? WHERE id = ?"       
+                values=[]
+                for updatedUser in localStorage.updatedPlaylists:                
+                    val = (updatedUser.name, updatedUser.username, updatedUser.email, updatedUser.password, updatedUser.birthDate, updatedUser.country, updatedUser.id)
+                    values.append(val)
+                cursor.executemany(sql, values)
+                cursor.commit()
+                print(cursor.rowcount, "record(s) affected")    
+                cursor.close()
+        except pyodbc.Error as e:
+            print(f"Error de SQL al actualizar los datos: {e}")
+        except Exception as e:
+            print(f"Error al conectar con la base de datos: {e}")
+            
+    def DELETE_PLAYLISTS(self):
+        try:
+            if len(localStorage.deletedPlaylists) > 0:
+                cursor = self.conn.cursor()     
 
-    #     cursor.execute(sql, val)
-
-
-
-    #     self.conn.commit()
-
-    #     print(cursor.rowcount, "record(s) affected")
+                sql = "DELETE FROM Playlist WHERE id = ?"       
+                values=[]
+                for deletedPlaylist in localStorage.deletedPlaylists:                
+                    val = (deletedPlaylist.id)
+                    values.append(val)
+                cursor.executemany(sql, values)
+                sql = "DELETE FROM ListSongPlaylist WHERE playlistId = ?"
+                cursor.executemany(sql, values)
+                cursor.commit()
+                print(cursor.rowcount, "record(s) affected")    
+                cursor.close()
+        except pyodbc.Error as e:
+            print(f"Error de SQL al eliminar los datos: {e}")
+        except Exception as e:
+            print(f"Error al conectar con la base de datos: {e}")
     
-    #     cursor.close()
         
 
 

@@ -9,6 +9,11 @@ class LOCAL_STORAGE:
         self.__songs = canciones
         self.__playlists = listaDeReproduccion
         self.__genres = generos
+        self.__createdUsers = []
+        self.__updatedUsers = []
+        self.__createdPlaylists = []
+        self.__deletedPlaylists = []
+        self.__updatedPlaylists = []
         
     @property
     def users(self):
@@ -65,6 +70,46 @@ class LOCAL_STORAGE:
     @genres.setter
     def genres(self, genres):
         self.__genres = genres
+        
+    @property
+    def createdUsers(self):
+        return self.__createdUsers
+    
+    @createdUsers.setter
+    def createdUsers(self, createdUsers):
+        self.__createdUsers.append(createdUsers)
+        
+    @property
+    def updatedUsers(self):
+        return self.__updatedUsers
+    
+    @updatedUsers.setter
+    def updatedUsers(self, updatedUsers):
+        self.__updatedUsers.append(updatedUsers)
+        
+    @property
+    def createdPlaylists(self):
+        return self.__createdPlaylists
+    
+    @createdPlaylists.setter
+    def createdPlaylists(self, createdPlaylists):
+        self.__createdPlaylists.append(createdPlaylists)
+        
+    @property
+    def deletedPlaylists(self):
+        return self.__deletedPlaylists
+    
+    @deletedPlaylists.setter
+    def deletedPlaylists(self, deletedPlaylists):
+        self.__deletedPlaylists.append(deletedPlaylists)
+        
+    @property
+    def updatedPlaylists(self):
+        return self.__updatedPlaylists
+    
+    @updatedPlaylists.setter
+    def updatedPlaylists(self, updatedPlaylists):
+        self.__updatedPlaylists.append(updatedPlaylists)
         
 global localStorage
 localStorage = LOCAL_STORAGE()
