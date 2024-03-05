@@ -7,7 +7,7 @@ USE Mikelfy;
 CREATE TABLE Country (
   id INT NOT NULL,
   nombre VARCHAR(50),
-  PRIMARY KEY (id)
+  PRIMARY KEY (id),
 );
 
 CREATE TABLE Genre (
@@ -24,7 +24,8 @@ CREATE TABLE Usuario (
   contrasenia VARCHAR(50),
   birthdate INT,
   countryId INT,
-  PRIMARY KEY (id)
+  PRIMARY KEY (id),
+  CONSTRAINT country_user_idfk FOREIGN KEY (countryId) REFERENCES Country (id),
 );
 
 CREATE TABLE Song (
